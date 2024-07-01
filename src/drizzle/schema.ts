@@ -3,15 +3,16 @@ import { sql } from "drizzle-orm";
 import { relations } from "drizzle-orm";
 
 // Enums
-const roleEnum = pgEnum("role", ["user", "admin"]);
+export const roleEnum = pgEnum("role", ["user", "admin"]);
 
+// 1. Users Table
 export const usersTable = pgTable("users", {
   user_id: serial("user_id").primaryKey(),
   full_name: varchar("full_name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).unique().notNull(),
   contact_phone: varchar("contact_phone", { length: 255 }).notNull(),
   address: text("address").notNull(),
-  role: roleEnum("role").default("user").notNull(),
+  role: roleEnum("role").default("user"),
   created_at: timestamp("created_at").default(sql`NOW()`).notNull(),
   updated_at: timestamp("updated_at").default(sql`NOW()`).notNull(),
 });
@@ -27,14 +28,14 @@ export const vehicleSpecificationsTable = pgTable("vehicle_specifications", {
   transmission: varchar("transmission", { length: 255 }).notNull(),
   seating_capacity: integer("seating_capacity").notNull(),
   color: varchar("color", { length: 255 }).notNull(),
-  features: text("features").notNull(),
+  features: text("features"),
 });
 
 // 3. Vehicles Table
 export const vehiclesTable = pgTable("vehicles", {
   vehicle_id: serial("vehicle_id").primaryKey(),
   vehicleSpec_id: integer("vehicleSpec_id").notNull().references(() => vehicleSpecificationsTable.vehicleSpec_id, { onDelete: "cascade" }),
-  rental_rate: decimal("rental_rate", { precision: 10, scale: 2 }).notNull(),
+  rental_rate: decimal("rental_rate", { precision: 10, scale: 2 }).notNull(), // ie. 100.00
   availability: boolean("availability").notNull(),
   created_at: timestamp("created_at").default(sql`NOW()`).notNull(),
   updated_at: timestamp("updated_at").default(sql`NOW()`).notNull(),
@@ -110,7 +111,7 @@ export const fleetManagementTable = pgTable("fleet_management", {
   updated_at: timestamp("updated_at").default(sql`NOW()`).notNull(),
 });
 
-// user relationships
+//1. user relationships
 export const userRelationships = relations(usersTable, ({ many }) => ({
   bookings: many(bookingsTable),
   payments: many(paymentsTable),
@@ -181,6 +182,44 @@ export const fleetManagementRelationships = relations(fleetManagementTable, ({ o
     references: [vehiclesTable.vehicle_id],
   }),
 }));
+
+
+// usersTable Types
+export type TIUsers = typeof usersTable.$inferInsert;
+export type TSUsers = typeof usersTable.$inferSelect;
+
+// vehicleSpecificationsTable Types
+export type TIVehicleSpecifications = typeof vehicleSpecificationsTable.$inferInsert;
+export type TSVehicleSpecifications = typeof vehicleSpecificationsTable.$inferSelect;
+
+// vehiclesTable Types
+export type TIVehicles = typeof vehiclesTable.$inferInsert;
+export type TSVehicles = typeof vehiclesTable.$inferSelect;
+
+// locationTable Types
+export type TILocation = typeof locationTable.$inferInsert;
+export type TSLocation = typeof locationTable.$inferSelect;
+
+// bookingsTable Types
+export type TIBookings = typeof bookingsTable.$inferInsert;
+export type TSBookings = typeof bookingsTable.$inferSelect;
+
+// paymentsTable Types
+export type TIPayments = typeof paymentsTable.$inferInsert;
+export type TSPayments = typeof paymentsTable.$inferSelect;
+
+// authenticationTable Types
+export type TIAuthentication = typeof authenticationTable.$inferInsert;
+export type TSAuthentication = typeof authenticationTable.$inferSelect;
+
+// supportTicketsTable Types
+export type TISupportTickets = typeof supportTicketsTable.$inferInsert;
+export type TSSupportTickets = typeof supportTicketsTable.$inferSelect;
+
+// fleetManagementTable Types
+export type TIFleetManagement = typeof fleetManagementTable.$inferInsert;
+export type TSFleetManagement = typeof fleetManagementTable.$inferSelect;
+
 
 
 

@@ -1,421 +1,234 @@
 import db from "./db";
-import {  stateTable,  cityTable,  addressTable,  restaurantTable,  menuItemTable,  categoryTable,  usersTable,  restaurantOwnerTable,  ordersTable,  driverTable,  orderMenuItemTable,
-  orderStatusTable,  statusCatalogTable,  commentsTable,} from "./schema";
+import {
+  usersTable,
+  vehicleSpecificationsTable,
+  vehiclesTable,
+  locationTable,
+  bookingsTable,
+  paymentsTable,
+  authenticationTable,
+  supportTicketsTable,
+  fleetManagementTable,
+} from "./schema";
 
-const states = [{ name: "Kenya", code: "254" }];
-
-const cities = [
-  { name: "Nairobi", state_id: 1 },
-  { name: "Mombasa", state_id: 1 },
-  { name: "Kisumu", state_id: 1 },
-  { name: "Eldoret", state_id: 1 },
-];
-
-const addresses = [
-  {
-    street_address_1: "1234 Main St",
-    street_address_2: "Apt 1",
-    city_id: 1,
-    zip_code: "12345",
-    delivery_instructions: "Leave at the front door",
-    user_id: 1,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    street_address_1: "5678 Elm St",
-    street_address_2: "Apt 2",
-    city_id: 2,
-    zip_code: "54321",
-    delivery_instructions: "Leave at the back door",
-    user_id: 2,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    street_address_1: "9101 Oak St",
-    street_address_2: "Apt 3",
-    city_id: 3,
-    zip_code: "67890",
-    delivery_instructions: "Ring the bell",
-    user_id: 3,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    street_address_1: "1121 Pine St",
-    street_address_2: "Apt 4",
-    city_id: 4,
-    zip_code: "09876",
-    delivery_instructions: "Call upon arrival",
-    user_id: 4,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-];
-
-const restaurants = [
-  {
-    name: "Java",
-    street_address: "1234 Main St",
-    zip_code: "12345",
-    city_id: 1,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    name: "KFC",
-    street_address: "5678 Elm St",
-    zip_code: "54321",
-    city_id: 2,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    name: "Dominos",
-    street_address: "9101 Oak St",
-    zip_code: "67890",
-    city_id: 3,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    name: "Pizza Inn",
-    street_address: "1121 Pine St",
-    zip_code: "09876",
-    city_id: 4,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-];
-
-const categories = [
-  { name: "Fast Food" },
-  { name: "Pizza" },
-  { name: "Chinese" },
-  { name: "Indian" },
-];
-
-const menuItems = [
-  {
-    name: "Chips",
-    restaurant_id: 1,
-    category_id: 1,
-    description: "Fried potatoes",
-    ingredients: "Potatoes, salt, oil",
-    price: 100.0,
-    active: true,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    name: "Burger",
-    restaurant_id: 1,
-    category_id: 1,
-    description: "Bun with meat",
-    ingredients: "Bun, meat, lettuce, tomato, cheese",
-    price: 200.0,
-    active: true,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    name: "Pizza",
-    restaurant_id: 2,
-    category_id: 2,
-    description: "Cheese and tomato",
-    ingredients: "Dough, tomato sauce, cheese",
-    price: 300.0,
-    active: true,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    name: "Fried Rice",
-    restaurant_id: 3,
-    category_id: 3,
-    description: "Rice with vegetables",
-    ingredients: "Rice, vegetables, soy sauce",
-    price: 400.0,
-    active: true,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-];
-
+// Sample data
 const users = [
   {
-    name: "Brian Kemboi",
+    full_name: "John Doe",
+    email: "john.doe@example.com",
     contact_phone: "0712345678",
-    phone_verified: true,
-    email: "kemboi@gmail.com",
-    email_verified: true,
-    confirmation_code: "1234",
+    address: "1234 Main St, Nairobi",
+    role: "user" as const,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    full_name: "Jane Smith",
+    email: "jane.smith@example.com",
+    contact_phone: "0712345679",
+    address: "5678 Elm St, Mombasa",
+    role: "user" as const,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    full_name: "Admin User",
+    email: "admin@example.com",
+    contact_phone: "0712345680",
+    address: "9101 Oak St, Kisumu",
+    role: "admin" as const,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+];
+
+const vehicleSpecifications = [
+  {
+    manufacturer: "Toyota",
+    model: "Corolla",
+    year: 2018,
+    fuel_type: "Petrol",
+    engine_capacity: "1800cc",
+    transmission: "Automatic",
+    seating_capacity: 5,
+    color: "White",
+    features: "Air Conditioning, Power Steering, Anti-lock Braking System",
+  },
+  {
+    manufacturer: "Honda",
+    model: "Civic",
+    year: 2020,
+    fuel_type: "Diesel",
+    engine_capacity: "2000cc",
+    transmission: "Manual",
+    seating_capacity: 5,
+    color: "Black",
+    features: "Air Conditioning, Power Steering, Anti-lock Braking System, Sunroof",
+  },
+];
+
+const vehicles = [
+  {
+    vehicleSpec_id: 1,
+    rental_rate: "5000.00",
+    availability: true,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    vehicleSpec_id: 2,
+    rental_rate: "7000.00",
+    availability: true,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+];
+
+const locations = [
+  {
+    name: "Nairobi Branch",
+    address: "1234 Main St, Nairobi",
+    contact_phone: "0712345678",
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    name: "Mombasa Branch",
+    address: "5678 Elm St, Mombasa",
+    contact_phone: "0712345679",
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+];
+
+const bookings = [
+  {
+    user_id: 1,
+    vehicle_id: 1,
+    location_id: 1,
+    booking_date: new Date(),
+    return_date: new Date(new Date().setDate(new Date().getDate() + 7)),
+    total_amount: "35000.00",
+    booking_status: "Confirmed",
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    user_id: 2,
+    vehicle_id: 2,
+    location_id: 2,
+    booking_date: new Date(),
+    return_date: new Date(new Date().setDate(new Date().getDate() + 5)),
+    total_amount: "35000.00",
+    booking_status: "Pending",
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+];
+
+const payments = [
+  {
+    booking_id: 1,
+    amount: "35000.00",
+    payment_status: "Completed",
+    payment_date: new Date(),
+    payment_method: "Credit Card",
+    transaction_id: "TXN123456",
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    booking_id: 2,
+    amount: "35000.00",
+    payment_status: "Pending",
+    payment_date: new Date(),
+    payment_method: "PayPal",
+    transaction_id: "TXN123457",
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+];
+
+const authentication = [
+  {
+    user_id: 1,
     password: "password1",
     created_at: new Date(),
     updated_at: new Date(),
   },
   {
-    name: "Tifany Nyawira",
-    contact_phone: "0712345678",
-    phone_verified: true,
-    email: "Nyawira@gmail.com",
-    email_verified: true,
-    confirmation_code: "1234",
+    user_id: 2,
     password: "password2",
     created_at: new Date(),
     updated_at: new Date(),
   },
   {
-    name: "Ben Kimani",
-    contact_phone: "0712345678",
-    phone_verified: true,
-    email: "kimani@gmail.com",
-    email_verified: true,
-    confirmation_code: "1234",
-    password: "password3",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    name: "Sarah Wanjiru",
-    contact_phone: "0712345678",
-    phone_verified: true,
-    email: "wanjiru@gmail.com",
-    email_verified: true,
-    confirmation_code: "1234",
-    password: "password4",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-];
-
-const restaurantOwners = [
-  { restaurant_id: 1, owner_id: 1 },
-  { restaurant_id: 2, owner_id: 2 },
-  { restaurant_id: 3, owner_id: 3 },
-  { restaurant_id: 4, owner_id: 4 },
-];
-
-const orders = [
-  {
-    restaurant_id: 1,
-    estimated_delivery_time: new Date(),
-    actual_delivery_time: new Date(),
-    delivery_address: "1234 Main St",
-    user_id: 1,
-    driver_id: 1,
-    price: "100.00",
-    discount: "100.0",
-    final_price: "900.0",
-    comment: "Good service",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    restaurant_id: 2,
-    estimated_delivery_time: new Date(),
-    actual_delivery_time: new Date(),
-    delivery_address: "5678 Elm St",
-    user_id: 2,
-    driver_id: 2,
-    price: "200.00",
-    discount: "200.0",
-    final_price: "800.0",
-    comment: "Good service",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    restaurant_id: 3,
-    estimated_delivery_time: new Date(),
-    actual_delivery_time: new Date(),
-    delivery_address: "9101 Oak St",
     user_id: 3,
-    driver_id: 3,
-    price: "300.00",
-    discount: "300.0",
-    final_price: "700.0",
-    comment: "Good service",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    restaurant_id: 4,
-    estimated_delivery_time: new Date(),
-    actual_delivery_time: new Date(),
-    delivery_address: "1121 Pine St",
-    user_id: 4,
-    driver_id: 4,
-    price: "400.00",
-    discount: "400.0",
-    final_price: "600.0",
-    comment: "Good service",
+    password: "adminpassword",
     created_at: new Date(),
     updated_at: new Date(),
   },
 ];
 
-const drivers = [
+const supportTickets = [
   {
-    car_make: "Toyota",
-    car_model: "Corolla",
-    car_year: "2015",
     user_id: 1,
-    online: true,
-    delivering: false,
+    subject: "Booking Issue",
+    description: "I have an issue with my recent booking.",
+    status: "Open",
     created_at: new Date(),
     updated_at: new Date(),
   },
   {
-    car_make: "Honda",
-    car_model: "Civic",
-    car_year: "2018",
     user_id: 2,
-    online: true,
-    delivering: false,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    car_make: "Nissan",
-    car_model: "Altima",
-    car_year: "2017",
-    user_id: 3,
-    online: true,
-    delivering: false,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    car_make: "Ford",
-    car_model: "Focus",
-    car_year: "2019",
-    user_id: 4,
-    online: true,
-    delivering: false,
+    subject: "Payment Issue",
+    description: "My payment did not go through.",
+    status: "Pending",
     created_at: new Date(),
     updated_at: new Date(),
   },
 ];
 
-const orderMenuItems = [
+const fleetManagement = [
   {
-    order_id: 1,
-    menu_item_id: 1,
-    quantity: 1,
-    item_price: "100.00",
-    price: "120.0",
-    comment: "Good food",
-  },
-  {
-    order_id: 2,
-    menu_item_id: 2,
-    quantity: 1,
-    item_price: "200.00",
-    price: "220.0",
-    comment: "Good food",
-  },
-  {
-    order_id: 3,
-    menu_item_id: 3,
-    quantity: 1,
-    item_price: "300.00",
-    price: "320.0",
-    comment: "Good food",
-  },
-  {
-    order_id: 4,
-    menu_item_id: 4,
-    quantity: 1,
-    item_price: "400.00",
-    price: "420.0",
-    comment: "Good food",
-  },
-];
-
-const orderStatus = [
-  { order_id: 1, status_catalog_id: 1, created_at: new Date() },
-  { order_id: 1, status_catalog_id: 2, created_at: new Date() },
-  { order_id: 2, status_catalog_id: 1, created_at: new Date() },
-  { order_id: 2, status_catalog_id: 2, created_at: new Date() },
-  { order_id: 3, status_catalog_id: 1, created_at: new Date() },
-  { order_id: 3, status_catalog_id: 2, created_at: new Date() },
-  { order_id: 4, status_catalog_id: 1, created_at: new Date() },
-  { order_id: 4, status_catalog_id: 2, created_at: new Date() },
-];
-
-const statusCatalog = [
-  { name: " Order Placed", description: "Order Placed" },
-  { name: "Order Confirmed", description: "Order Confirmed" },
-  { name: "Order Delivered", description: "Order Delivered" },
-  { name: "Order Cancelled", description: "Order Cancelled" },
-];
-
-const comments = [
-  {
-    order_id: 1,
-    user_id: 1,
-    comment_text: "I enjoyed the food",
-    is_complaint: false,
-    is_praise: true,
+    vehicle_id: 1,
+    acquisition_date: new Date(),
+    depreciation_rate: "10.00",
+    current_value: "400000.00",
+    maintenance_cost: "5000.00",
+    status: "Active",
     created_at: new Date(),
     updated_at: new Date(),
   },
   {
-    order_id: 2,
-    user_id: 2,
-    comment_text: "I enjoyed the food",
-    is_complaint: false,
-    is_praise: true,
+    vehicle_id: 2,
+    acquisition_date: new Date(),
+    depreciation_rate: "8.00",
+    current_value: "450000.00",
+    maintenance_cost: "6000.00",
+    status: "Under Maintenance",
     created_at: new Date(),
     updated_at: new Date(),
   },
-  {
-    order_id: 3,
-    user_id: 3,
-    comment_text: "I enjoyed the food",
-    is_complaint: false,
-    is_praise: true,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    order_id: 4,
-    user_id: 4,
-    comment_text: "I enjoyed the food",
-    is_complaint: false,
-    is_praise: true,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-
-
 ];
 
+// Seed function
 async function seed() {
-  await db.insert(stateTable).values(states);
-  await db.insert(cityTable).values(cities);
-  await db.insert(usersTable).values(users);  // Insert users before addresses
-  await db.insert(addressTable).values(addresses);  // Insert addresses after users
-  await db.insert(restaurantTable).values(restaurants);
-  await db.insert(categoryTable).values(categories);
-  await db.insert(menuItemTable).values(menuItems);
-  await db.insert(restaurantOwnerTable).values(restaurantOwners);
-  await db.insert(driverTable).values(drivers);  // Insert drivers before orders
-  await db.insert(ordersTable).values(orders);  // Insert orders before order_menu_item
-  await db.insert(orderMenuItemTable).values(orderMenuItems);  // Insert order_menu_item after orders
-  await db.insert(statusCatalogTable).values(statusCatalog);
-  await db.insert(orderStatusTable).values(orderStatus);
-  await db.insert(commentsTable).values(comments);
+  await db.insert(usersTable).values(users);
+  await db.insert(vehicleSpecificationsTable).values(vehicleSpecifications);
+  await db.insert(vehiclesTable).values(vehicles);
+  await db.insert(locationTable).values(locations);
+  await db.insert(bookingsTable).values(bookings);
+  await db.insert(paymentsTable).values(payments);
+  await db.insert(authenticationTable).values(authentication);
+  await db.insert(supportTicketsTable).values(supportTickets);
+  await db.insert(fleetManagementTable).values(fleetManagement);
 }
 
-seed().then(() => {
-  console.log("Seeding completed");
-
-}).catch((error) => {
-  console.error("Error seeding data", error);
-});
-
-
-
+seed()
+  .then(() => {
+    console.log("Seeding completed");
+  })
+  .catch((error) => {
+    console.error("Error seeding data", error);
+  });
