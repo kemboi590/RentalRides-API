@@ -1,0 +1,38 @@
+### TEST ROUTE
+GET http://localhost:8080/
+
+
+### GET ALL USERS
+GET http://localhost:8080/users
+
+### GET USER BY ID
+GET http://localhost:8080/users/4
+
+### CREATE USER
+POST http://localhost:8080/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "full_name": "test name",
+    "email": "test@gmail.com",
+    "contact_phone": "0712345678",
+    "address": "1234, Embu",
+    "role": "user",
+    "password": "password1"
+}
+
+### UPDATE USER BY ID
+PUT http://localhost:8080/users/4 HTTP/1.1
+Content-Type: application/json
+
+{
+    "full_name": "test name2",
+    "email": "test2@gmail.com",
+    "contact_phone": "0712345678",
+    "address": "1234, Embu",
+    "role": "user",
+    "password": "testpass"
+}	
+
+### DELETE USER BY ID
+DELETE http://localhost:8080/users/4
