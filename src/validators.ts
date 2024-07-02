@@ -30,3 +30,9 @@ export const vehicleSchema = z.object({
     rental_rate: z.string().min(3).max(255),
     availability: z.boolean(),
 });
+
+export const locationSchema = z.object({
+    name: z.string().min(3).max(255),
+    address: z.string().min(10).max(255),
+    contact_phone: z.string().min(10).max(15),
+});

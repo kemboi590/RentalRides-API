@@ -111,3 +111,34 @@ Content-Type: application/json
 ### DELETE VEHICLE BY ID
 DELETE http://localhost:8080/vehicles/3
 
+
+### GET ALL LOCATIONS
+GET http://localhost:8080/locations
+
+### GET LOCATION BY ID
+GET http://localhost:8080/locations/3
+
+### CREATE LOCATION
+
+POST http://localhost:8080/locations HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Nairobi HEEEY  Branch",
+    "address": "1234 Main St, Nairobi",
+    "contact_phone": "0712345678"
+}
+
+### UPDATE LOCATION BY ID
+PUT http://localhost:8080/locations/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Nairobi Branch",
+    "address": "1234 Main St, Nairobi",
+    "contact_phone": "0712345678"
+}
+
+### DELETE LOCATION BY ID
+DELETE http://localhost:8080/locations/3
+
