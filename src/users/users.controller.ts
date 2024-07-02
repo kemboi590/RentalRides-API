@@ -1,29 +1,16 @@
 import { Context } from "hono";
-import { getUsersService, getUserByIdService, createUserService, updateUserService, deleteUserService } from "./users.service";
+import { getUsersService, getUserByIdService, createUserService, updateUserService, 
+    userExistsService, deleteUserService } from "./users.service";
 import { getEntitiesController, getEntityByIdController,createEntityController,updateEntityController } from "../generics/generic.Controller";
 
 // get all users
-
 export const getUsersController = getEntitiesController(getUsersService);
 // get user by id
 export const getUserByIdController = getEntityByIdController(getUserByIdService);
 // create user
 export const createUserController = createEntityController(createUserService);
-
-// export const createUserController = async (c: Context) => {
-//     try {
-//         const user = await c.req.json();
-//         const newUser = await createUserService(user);
-
-//         if (!newUser) return c.text("User not created", 400);
-//         return c.json({ message: newUser }, 201);
-//     } catch (error: any) {
-//         return c.json({ error: error?.message }, 500);
-//     }
-// };
-
 //  update user
-export const updateUserController = updateEntityController(updateUserService);
+export const updateUserController = updateEntityController(userExistsService,updateUserService);
 // export const updateUserController = async (c: Context) => {
 //     try {
 //         // get id from url

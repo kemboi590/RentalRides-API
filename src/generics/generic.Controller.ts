@@ -1,3 +1,4 @@
+import { promises } from "dns";
 import { Context } from "hono";
 
 // Controller to get all entities
@@ -41,11 +42,16 @@ export const createEntityController = <T>(service: (entity: T, c: Context) => Pr
     }
 }
 
+
 // controller to update entity
-export const updateEntityController = <T>(service: (id: number, entity: T, c: Context) => Promise<string>) => async (c: Context) => {
+export const updateEntityController = <T>(existService:(id:number, c:Context)=>Promise<boolean>, service: (id: number, entity: T, c: Context) => Promise<string>) => async (c: Context) => {
     try {
         const id = parseInt(c.req.param("id"));
         if (isNaN(id)) return c.text("Invalid id", 400);
+
+        // first check before update
+        const exists = await existService(id, c);
+        if (!exists) return c.text("Not found", 404);
 
         // Update entity
         const entity = await c.req.json();

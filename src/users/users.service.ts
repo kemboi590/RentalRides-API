@@ -14,8 +14,15 @@ export const getUserByIdService = async (id: number): Promise<TSUsers | undefine
     const user = await db.query.usersTable.findFirst({
         where: eq(usersTable.user_id, id)
     });
-    return user;
+    return user || undefined;
 }
+
+// CHECK IF USER EXISTS
+export const userExistsService = async (id: number): Promise<boolean> => {
+    const user = await getUserByIdService(id);
+    return user !== undefined; //returns true if user exists
+}
+
 
 // CREATE USER
 export const createUserService = async (user: TIUsers) => {
