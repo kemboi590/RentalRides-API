@@ -1,6 +1,5 @@
 import { eq } from "drizzle-orm";
 import db from "../drizzle/db";
-
 import { TIUsers, TSUsers, usersTable } from "../drizzle/schema";
 
 // GET ALL USERS
@@ -23,21 +22,20 @@ export const userExistsService = async (id: number): Promise<boolean> => {
     return user !== undefined; //returns true if user exists
 }
 
-
 // CREATE USER
-export const createUserService = async (user: TIUsers) => {
+export const createUserService = async (user: TIUsers): Promise<string> => {
     await db.insert(usersTable).values(user)
     return "user created successfully";
 }
 
 //  UPDATE USER
-export const updateUserService = async (id: number, user: TIUsers) => {
+export const updateUserService = async (id: number, user: TIUsers): Promise<string> => {
     await db.update(usersTable).set(user).where(eq(usersTable.user_id, id));
     return "user updated successfully";
 }
 
 // DELETE USER
-export const deleteUserService = async (id: number) => {
+export const deleteUserService = async (id: number): Promise<string> => {
     await db.delete(usersTable).where(eq(usersTable.user_id, id));
     return "user deleted successfully";
 }

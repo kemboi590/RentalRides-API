@@ -1,8 +1,39 @@
 import { promises } from "dns";
 import { Context } from "hono";
 
+// interface for service to get all entities
+export interface GetEntitiesService<T> {
+    (c: Context): Promise<T[]>;
+}
+
+// interface for service to get entity by id
+export interface GetEntityByIdService<T> {
+    (id: number, c: Context): Promise<T | undefined>;
+}
+
+// interface for service to create entity
+export interface CreateEntityService<T> {
+    (entity: T, c: Context): Promise<string>;
+}
+
+// interface for service to update entity
+export interface UpdateEntityService<T> {
+    (id: number, entity: T, c: Context): Promise<string>;
+}
+
+// interface for service to delete entity
+export interface DeleteEntityService {
+    (id: number, c: Context): Promise<string>;
+}
+
+// iterface for exist service
+export interface ExistService {
+    (id: number, c: Context): Promise<boolean>;
+}
+
+
 // Controller to get all entities
-export const getEntitiesController = <T>(service: (c: Context) => Promise<T[]>) => async (c: Context) => {
+export const getEntitiesController = <T>(service: GetEntitiesService<T>) => async (c: Context) => {
     try {
         const entities = await service(c);
         if (entities == null || entities.length == 0) {
@@ -15,7 +46,7 @@ export const getEntitiesController = <T>(service: (c: Context) => Promise<T[]>) 
 }
 
 // controller to get entity by id
-export const getEntityByIdController = <T>(service: (id: number, c: Context) => Promise<T | undefined>) => async (c: Context) => {
+export const getEntityByIdController = <T>(service: GetEntityByIdService<T>) => async (c: Context) => {
     try {
         const id = parseInt(c.req.param("id"));
         if (isNaN(id)) return c.text("Invalid id", 400);
@@ -31,7 +62,7 @@ export const getEntityByIdController = <T>(service: (id: number, c: Context) => 
 }
 
 // controller to create entity
-export const createEntityController = <T>(service: (entity: T, c: Context) => Promise<string>) => async (c: Context) => {
+export const createEntityController = <T>(service: CreateEntityService<T>) => async (c: Context) => {
     try {
         const entity = await c.req.json();
         const res = await service(entity, c);
@@ -44,7 +75,7 @@ export const createEntityController = <T>(service: (entity: T, c: Context) => Pr
 
 
 // controller to update entity
-export const updateEntityController = <T>(existService:(id:number, c:Context)=>Promise<boolean>, service: (id: number, entity: T, c: Context) => Promise<string>) => async (c: Context) => {
+export const updateEntityController = <T>(existService: ExistService, service: UpdateEntityService<T>) => async (c: Context) => {
     try {
         const id = parseInt(c.req.param("id"));
         if (isNaN(id)) return c.text("Invalid id", 400);
@@ -64,7 +95,7 @@ export const updateEntityController = <T>(existService:(id:number, c:Context)=>P
 }
 
 // controller to delete entity
-export const deleteEntityController = <T>(existService:(id:number, c:Context)=>Promise<boolean>, service: (id: number, c: Context) => Promise<string>) => async (c: Context) => {
+export const deleteEntityController = <T>(existService: ExistService, service: DeleteEntityService) => async (c: Context) => {
     try {
         const id = parseInt(c.req.param("id"));
         if (isNaN(id)) return c.text("Invalid id", 400);
