@@ -78,3 +78,36 @@ Content-Type: application/json
 
 ### DELETE VEHICLE SPECIFICATION BY ID
 DELETE http://localhost:8080/vehicleSpecifications/3
+
+
+
+
+### GET ALL VEHICLES
+GET http://localhost:8080/vehicles
+
+### GET VEHICLE BY ID
+GET http://localhost:8080/vehicles/3
+
+### CREATE VEHICLE
+POST http://localhost:8080/vehicles HTTP/1.1
+Content-Type: application/json
+
+{
+    "vehicleSpec_id": 1,
+    "rental_rate": "50.00",
+    "availability": false
+}
+
+### UPDATE VEHICLE BY ID
+PUT http://localhost:8080/vehicles/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "vehicleSpec_id": 1,
+    "rental_rate": "5000.00",
+    "availability": true
+}
+
+### DELETE VEHICLE BY ID
+DELETE http://localhost:8080/vehicles/3
+

@@ -1,5 +1,5 @@
 import { Context } from 'hono';
-
+// try catch wrapper
 export const tryCatchWrapper = (handler: (c: Context) => Promise<Response>) => {
     return async (c: Context): Promise<Response> => {
         try {

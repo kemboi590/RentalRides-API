@@ -25,3 +25,8 @@ export const vehicleSpecSchema = z.object({
     features: z.string().min(3).max(255),
 });
 
+export const vehicleSchema = z.object({
+    vehicleSpec_id: z.number().int(),
+    rental_rate: z.string().min(3).max(255),
+    availability: z.boolean(),
+});

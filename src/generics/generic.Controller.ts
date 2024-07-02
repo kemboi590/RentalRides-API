@@ -1,4 +1,3 @@
-import { promises } from "dns";
 import { Context } from "hono";
 import { invalidParam, notFound, tryCatchWrapper } from "../factory/factory";
 
@@ -6,27 +5,22 @@ import { invalidParam, notFound, tryCatchWrapper } from "../factory/factory";
 export interface GetEntitiesService<T> {
     (c: Context): Promise<T[]>;
 }
-
 // interface for service to get entity by id
 export interface GetEntityByIdService<T> {
     (id: number, c: Context): Promise<T | undefined>;
 }
-
 // interface for service to create entity
 export interface CreateEntityService<T> {
     (entity: T, c: Context): Promise<string>;
 }
-
 // interface for service to update entity
 export interface UpdateEntityService<T> {
     (id: number, entity: T, c: Context): Promise<string>;
 }
-
 // interface for service to delete entity
 export interface DeleteEntityService {
     (id: number, c: Context): Promise<string>;
 }
-
 // iterface for exist service
 export interface ExistService {
     (id: number, c: Context): Promise<boolean>;
