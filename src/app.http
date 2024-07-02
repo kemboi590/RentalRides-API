@@ -36,3 +36,45 @@ Content-Type: application/json
 
 ### DELETE USER BY ID
 DELETE http://localhost:8080/users/5
+
+
+### GET ALL VEHICLE SPECIFICATIONS
+GET http://localhost:8080/vehicleSpecifications
+
+### GET VEHICLE SPECIFICATION BY ID
+GET http://localhost:8080/vehicleSpecifications/3
+
+### CREATE VEHICLE SPECIFICATION
+POST http://localhost:8080/vehicleSpecifications HTTP/1.1
+Content-Type: application/json
+
+{
+    "manufacturer": "Toyotaaa",
+    "model": "Corollaaa",
+    "year": 2018,
+    "fuel_type": "Petrolaa",
+    "engine_capacity": "1800cc",
+    "transmission": "Automatic",
+    "seating_capacity": 5,
+    "color": "White",
+    "features": "Air Conditioning, Power Steering, Anti-lock Braking System"
+}
+
+### UPDATE VEHICLE SPECIFICATION BY ID
+PUT http://localhost:8080/vehicleSpecifications/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "manufacturer": "Toaaa",
+    "model": "Cache-Control: ",
+    "year": 2018,
+    "fuel_type": "Paaaet",
+    "engine_capacity": "1800cc",
+    "transmission": "Autom",
+    "seating_capacity": 5,
+    "color": "White",
+    "features": "Air Conditioning"
+}
+
+### DELETE VEHICLE SPECIFICATION BY ID
+DELETE http://localhost:8080/vehicleSpecifications/3

@@ -9,6 +9,7 @@ import { HTTPException } from 'hono/http-exception'
 
 // all routers
 import { userRouter } from './users/users.router'
+import { vehicleSpecificationsRouter } from './vehicleSpecifications/vSpecifications.router'
 
 const app = new Hono()
 
@@ -31,6 +32,7 @@ app.get('/', (c) => {
 
 // route here
 app.route("/", userRouter)
+app.route("/", vehicleSpecificationsRouter)
 
 app.get('time', async (c) => {
   await new Promise((resolve) => setTimeout(resolve, 3000))
