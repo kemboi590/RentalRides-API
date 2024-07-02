@@ -1,18 +1,21 @@
 import { Context } from "hono";
 import { getUsersService, getUserByIdService, createUserService, updateUserService, deleteUserService } from "./users.service";
+import { getEntitiesController } from "../generics/generic.Controller";
 
 // get all users
-export const getUsersController = async (c: Context) => {
-    try {
-        const users = await getUsersService();
-        if (users == null || users.length == 0) {
-            return c.text("No users found", 404);
-        }
-        return c.json(users, 200);
-    } catch (error: any) {
-        return c.json({ error: error?.message }, 500);
-    }
-};
+
+export const getUsersController = getEntitiesController(getUsersService);
+// export const getUsersController = async (c: Context) => {
+//     try {
+//         const users = await getUsersService();
+//         if (users == null || users.length == 0) {
+//             return c.text("No users found", 404);
+//         }
+//         return c.json(users, 200);
+//     } catch (error: any) {
+//         return c.json({ error: error?.message }, 500);
+//     }
+// };
 
 // get user by id
 export const getUserByIdController = async (c: Context) => {

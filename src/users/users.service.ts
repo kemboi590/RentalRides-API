@@ -4,7 +4,7 @@ import db from "../drizzle/db";
 import { TIUsers, TSUsers, usersTable } from "../drizzle/schema";
 
 // GET ALL USERS
-export const getUsersService = async (): Promise<TSUsers[] | null> => {
+export const getUsersService = async (): Promise<TSUsers[]> => {
     const users = await db.query.usersTable.findMany();
     return users;
 };
