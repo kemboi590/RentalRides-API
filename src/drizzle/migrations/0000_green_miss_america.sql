@@ -4,14 +4,6 @@ EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "authentication" (
-	"auth_id" serial PRIMARY KEY NOT NULL,
-	"user_id" integer NOT NULL,
-	"password" varchar(255) NOT NULL,
-	"created_at" timestamp DEFAULT NOW() NOT NULL,
-	"updated_at" timestamp DEFAULT NOW() NOT NULL
-);
---> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "bookings" (
 	"booking_id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
@@ -75,6 +67,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"contact_phone" varchar(255) NOT NULL,
 	"address" text NOT NULL,
 	"role" "role" DEFAULT 'user',
+	"password" varchar(255) NOT NULL,
 	"created_at" timestamp DEFAULT NOW() NOT NULL,
 	"updated_at" timestamp DEFAULT NOW() NOT NULL,
 	CONSTRAINT "users_email_unique" UNIQUE("email")
@@ -101,12 +94,6 @@ CREATE TABLE IF NOT EXISTS "vehicles" (
 	"created_at" timestamp DEFAULT NOW() NOT NULL,
 	"updated_at" timestamp DEFAULT NOW() NOT NULL
 );
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "authentication" ADD CONSTRAINT "authentication_user_id_users_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("user_id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "bookings" ADD CONSTRAINT "bookings_user_id_users_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("user_id") ON DELETE cascade ON UPDATE no action;

@@ -6,37 +6,39 @@ import {
   locationTable,
   bookingsTable,
   paymentsTable,
-  authenticationTable,
   supportTicketsTable,
   fleetManagementTable,
 } from "./schema";
 
-// Sample data
+// Seed data
 const users = [
   {
-    full_name: "John Doe",
-    email: "john.doe@example.com",
+    full_name: "Denis Kathuri",
+    email: "denis@gmail.com",
     contact_phone: "0712345678",
-    address: "1234 Main St, Nairobi",
+    address: "1234, Embu",
     role: "user" as const,
+    password: "password1",
     created_at: new Date(),
     updated_at: new Date(),
   },
   {
-    full_name: "Jane Smith",
-    email: "jane.smith@example.com",
+    full_name: "Sarah Wanjiru",
+    email: "sarah@gmail.com",
     contact_phone: "0712345679",
-    address: "5678 Elm St, Mombasa",
+    address: "5678, Kiambu",
     role: "user" as const,
+    password: "password2",
     created_at: new Date(),
     updated_at: new Date(),
   },
   {
-    full_name: "Admin User",
-    email: "admin@example.com",
-    contact_phone: "0712345680",
-    address: "9101 Oak St, Kisumu",
+    full_name: "Brian Kemboi",
+    email: "bkemboi590@gmail.com",
+    contact_phone: "0768353360",
+    address: "143 Kerugoya, Kirinyaga",
     role: "admin" as const,
+    password: "adminpass",
     created_at: new Date(),
     updated_at: new Date(),
   },
@@ -149,26 +151,6 @@ const payments = [
   },
 ];
 
-const authentication = [
-  {
-    user_id: 1,
-    password: "password1",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    user_id: 2,
-    password: "password2",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  {
-    user_id: 3,
-    password: "adminpassword",
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-];
 
 const supportTickets = [
   {
@@ -220,7 +202,6 @@ async function seed() {
   await db.insert(locationTable).values(locations);
   await db.insert(bookingsTable).values(bookings);
   await db.insert(paymentsTable).values(payments);
-  await db.insert(authenticationTable).values(authentication);
   await db.insert(supportTicketsTable).values(supportTickets);
   await db.insert(fleetManagementTable).values(fleetManagement);
 }

@@ -1,6 +1,6 @@
 {
-  "id": "b40864e8-4bc4-4a0a-a90c-dcc0a5a34d8e",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "bba3fef3-c42d-4c2b-8ed3-bd12472c0c86",
+  "prevId": "b40864e8-4bc4-4a0a-a90c-dcc0a5a34d8e",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -609,7 +609,8 @@
       "schema": "public",
       "values": [
         "user",
-        "admin"
+        "admin",
+        "both"
       ]
     }
   },

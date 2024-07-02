@@ -3,7 +3,7 @@ import { sql } from "drizzle-orm";
 import { relations } from "drizzle-orm";
 
 // Enums
-export const roleEnum = pgEnum("role", ["user", "admin"]);
+export const roleEnum = pgEnum("role", ["user", "admin", "both"]);
 
 // 1. Users Table
 export const usersTable = pgTable("users", {
@@ -13,6 +13,7 @@ export const usersTable = pgTable("users", {
   contact_phone: varchar("contact_phone", { length: 255 }).notNull(),
   address: text("address").notNull(),
   role: roleEnum("role").default("user"),
+  password: varchar("password", { length: 255 }).notNull(),
   created_at: timestamp("created_at").default(sql`NOW()`).notNull(),
   updated_at: timestamp("updated_at").default(sql`NOW()`).notNull(),
 });
@@ -78,14 +79,6 @@ export const paymentsTable = pgTable("payments", {
   updated_at: timestamp("updated_at").default(sql`NOW()`).notNull(),
 });
 
-// 7. Authentication Table
-export const authenticationTable = pgTable("authentication", {
-  auth_id: serial("auth_id").primaryKey(),
-  user_id: integer("user_id").notNull().references(() => usersTable.user_id, { onDelete: "cascade" }),
-  password: varchar("password", { length: 255 }).notNull(),
-  created_at: timestamp("created_at").default(sql`NOW()`).notNull(),
-  updated_at: timestamp("updated_at").default(sql`NOW()`).notNull(),
-});
 
 // 8. Customer Support Tickets Table
 export const supportTicketsTable = pgTable("support_tickets", {
@@ -116,7 +109,6 @@ export const userRelationships = relations(usersTable, ({ many }) => ({
   bookings: many(bookingsTable),
   payments: many(paymentsTable),
   support_tickets: many(supportTicketsTable),
-  authentication: many(authenticationTable),
 }));
 
 //vehicle relationships
@@ -139,7 +131,7 @@ export const bookingRelationships = relations(bookingsTable, ({ one, many }) => 
     fields: [bookingsTable.vehicle_id],
     references: [vehiclesTable.vehicle_id],
   }),
-  location: one(locationTable, {
+  location: one(locationTable, {    //revisit
     fields: [bookingsTable.location_id],
     references: [locationTable.location_id],
   }),
@@ -154,13 +146,6 @@ export const paymentRelationships = relations(paymentsTable, ({ one }) => ({
   }),
 }));
 
-//auth relationships
-export const authRelationships = relations(authenticationTable, ({ one }) => ({
-  user: one(usersTable, {
-    fields: [authenticationTable.user_id],
-    references: [usersTable.user_id],
-  }),
-}));
 
 //support ticket relationships
 export const supportTicketRelationships = relations(supportTicketsTable, ({ one }) => ({
@@ -182,7 +167,6 @@ export const fleetManagementRelationships = relations(fleetManagementTable, ({ o
     references: [vehiclesTable.vehicle_id],
   }),
 }));
-
 
 // usersTable Types
 export type TIUsers = typeof usersTable.$inferInsert;
@@ -207,10 +191,6 @@ export type TSBookings = typeof bookingsTable.$inferSelect;
 // paymentsTable Types
 export type TIPayments = typeof paymentsTable.$inferInsert;
 export type TSPayments = typeof paymentsTable.$inferSelect;
-
-// authenticationTable Types
-export type TIAuthentication = typeof authenticationTable.$inferInsert;
-export type TSAuthentication = typeof authenticationTable.$inferSelect;
 
 // supportTicketsTable Types
 export type TISupportTickets = typeof supportTicketsTable.$inferInsert;
