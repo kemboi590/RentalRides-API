@@ -1,5 +1,6 @@
 import { Context } from "hono";
 import { invalidParam, notFound, tryCatchWrapper } from "../factory/factory";
+import { TIBookings } from "../drizzle/schema";
 
 // interface for service to get all entities
 export interface GetEntitiesService<T> {
@@ -24,6 +25,11 @@ export interface DeleteEntityService {
 // iterface for exist service
 export interface ExistService {
     (id: number, c: Context): Promise<boolean>;
+}
+
+// booking service interfaces
+export interface CreateBookingService {
+    (booking: TIBookings, c: Context): Promise<string>;
 }
 
 
