@@ -180,3 +180,40 @@ Content-Type: application/json
 ### DELETE BOOKING BY ID
 DELETE http://localhost:8080/bookings/4
 
+
+
+###PAYMENTS
+### GET ALL PAYMENTS
+GET http://localhost:8080/payments
+
+### GET PAYMENT BY ID
+GET http://localhost:8080/payments/3
+
+### CREATE PAYMENT
+POST http://localhost:8080/payments HTTP/1.1
+Content-Type: application/json
+
+{
+    "booking_id": 1,
+    "amount": "35000.00",
+    "payment_status": "Completed hfg",
+    "payment_date": "2021-06-01",
+    "payment_method": "Credit Cardfddg",
+    "transaction_id": "TXN123456"
+}
+
+### UPDATE PAYMENT BY ID
+PUT http://localhost:8080/payments/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "booking_id": 1,
+    "amount": "35000.00",
+    "payment_status": "Comple",
+    "payment_date": "2021-06-01",
+    "payment_method": "Credit",
+    "transaction_id": "TXN123456"
+}
+
+### DELETE PAYMENT BY ID
+DELETE http://localhost:8080/payments/3

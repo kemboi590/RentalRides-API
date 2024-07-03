@@ -1,5 +1,5 @@
 import { getBookingsService, getBookingByIdService, bookingExistsService, createBookingService, updateBookingService, deleteBookingService } from "./bookings.service";
-import { getEntitiesController, getEntityByIdController, createEntityController, updateEntityController, deleteEntityController } from "../baseController/base.Generic.Controller";
+import { getEntitiesController, getEntityByIdController, deleteEntityController } from "../baseController/base.Generic.Controller";
 // import { createBookingController, updateBookingController } from "../baseController/booking.baseController";
 import { createEntityControllerWithDates, updateEntityControllerWithDates } from '../baseController/date.GenericController';
 

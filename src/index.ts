@@ -13,6 +13,7 @@ import { vehicleSpecificationsRouter } from './vehicleSpecifications/vSpecificat
 import { vehicleRouter } from './vehicles/vehicle.router';
 import { locationRouter } from './location/location.router'
 import { bookingRouter } from './bookings/bookings.router'
+import { paymentRouter } from './payments/payements.router'
 
 const app = new Hono()
 
@@ -39,6 +40,7 @@ app.route("/", vehicleSpecificationsRouter)
 app.route("/", vehicleRouter)
 app.route("/", locationRouter)
 app.route("/", bookingRouter)
+app.route("/", paymentRouter)
 
 app.get('time', async (c) => {
   await new Promise((resolve) => setTimeout(resolve, 3000))

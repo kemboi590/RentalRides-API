@@ -46,3 +46,12 @@ export const bookingSchema = z.object({
     total_amount: z.string().min(3).max(255),
     booking_status: z.string().min(3).max(255),
 });
+
+export const paymentSchema = z.object({
+    booking_id: z.number().int(),
+    amount: z.string().min(3).max(255),
+    payment_status: z.string().min(3).max(255),
+    payment_date: z.string(),
+    payment_method: z.string().min(3).max(255),
+    transaction_id: z.string().min(3).max(255),
+});
