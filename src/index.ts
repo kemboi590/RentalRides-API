@@ -15,6 +15,7 @@ import { locationRouter } from './location/location.router'
 import { bookingRouter } from './bookings/bookings.router'
 import { paymentRouter } from './payments/payements.router'
 import { supportRouter } from './support/support.router'
+import { fleetRouter } from './fleet/fleet.router'
 
 const app = new Hono()
 
@@ -43,6 +44,7 @@ app.route("/", locationRouter)
 app.route("/", bookingRouter)
 app.route("/", paymentRouter)
 app.route("/", supportRouter)
+app.route("/", fleetRouter)
 
 app.get('time', async (c) => {
   await new Promise((resolve) => setTimeout(resolve, 3000))

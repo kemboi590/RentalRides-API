@@ -62,3 +62,12 @@ export const ticketSchema = z.object({
     description: z.string().min(3).max(255),
     status: z.string().min(3).max(255),
 });
+
+export const fleetSchema = z.object({
+    vehicle_id: z.number().int(),
+    acquisition_date: z.string(),
+    depreciation_rate: z.string().min(3).max(255),
+    current_value: z.string().min(3).max(255),
+    maintenance_cost: z.string().min(3).max(255),
+    status: z.string().min(3).max(255),
+});
