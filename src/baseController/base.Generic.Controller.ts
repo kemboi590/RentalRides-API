@@ -27,11 +27,6 @@ export interface ExistService {
     (id: number, c: Context): Promise<boolean>;
 }
 
-// booking service interfaces
-export interface CreateBookingService {
-    (booking: TIBookings, c: Context): Promise<string>;
-}
-
 
 // Controller to get all entities
 export const getEntitiesController = <T>(service: GetEntitiesService<T>) =>
@@ -96,7 +91,7 @@ export const deleteEntityController = <T>(existService: ExistService, service: D
         return c.json({ message: res }, 200);
     });
 
-    export function convertDates<T extends Record<string, any>>(entity: T, dateFields: (keyof T)[]): T {
+    export function convertDates<T extends Record<string, any>>(entity: T, dateFields: (keyof T)[]): T { 
         const convertedEntity = { ...entity };
         dateFields.forEach(field => {
           if (convertedEntity[field]) {

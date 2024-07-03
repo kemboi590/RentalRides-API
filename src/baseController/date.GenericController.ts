@@ -1,16 +1,7 @@
 import { Context } from "hono";
 import { invalidParam, notFound, tryCatchWrapper } from "../factory/factory";
-import { TIBookings } from "../drizzle/schema";
-import { CreateEntityService, UpdateEntityService, ExistService } from "./base.Generic.Controller";
 import { convertDates } from "./base.Generic.Controller";
-
-export interface CreateBookingService {
-    (booking: TIBookings, c: Context): Promise<string>;
-}
-
-export interface UpdateBookingService {
-    (id: number, booking: TIBookings, c: Context): Promise<string>;
-}
+import { CreateEntityService, UpdateEntityService, ExistService } from "./base.Generic.Controller";
 
 // Generic create controller
 export const createEntityControllerWithDates = <T>(service: CreateEntityService<T>, dateFields: (keyof T)[]) =>

@@ -11,8 +11,6 @@ export const userSchema = z.object({
     updated_at: z.date().optional(),
 });
 
-
-
 export const vehicleSpecSchema = z.object({
     manufacturer: z.string().min(3).max(255),
     model: z.string().min(3).max(255),
