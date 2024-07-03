@@ -217,3 +217,35 @@ Content-Type: application/json
 
 ### DELETE PAYMENT BY ID
 DELETE http://localhost:8080/payments/3
+
+
+### GET ALL SUPPORT TICKETS
+GET http://localhost:8080/support
+
+### GET SUPPORT TICKET BY ID
+GET http://localhost:8080/support/3
+
+### CREATE SUPPORT TICKET
+POST http://localhost:8080/support HTTP/1.1
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "subject": "Test Subject",
+    "description": "Test Description",
+    "status": "Open"
+}
+
+### UPDATE SUPPORT TICKET BY ID
+PUT http://localhost:8080/support/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "subject": "Test Subject",
+    "description": "Test Description",
+    "status": "Closed"
+}
+
+### DELETE SUPPORT TICKET BY ID
+DELETE http://localhost:8080/support/3
