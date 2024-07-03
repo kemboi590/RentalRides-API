@@ -1,8 +1,9 @@
 
 import { getVehicleSpecificationsService, getVehicleSpecificationsByIdService, vehicleSpecificationsExistsService, createVehicleSpecificationsService, updateVehicleSpecificationsService, deleteVehicleSpecificationsService } from './vSpecifications.service';
 
-import { getEntitiesController, getEntityByIdController, createEntityController, updateEntityController, deleteEntityController
-} from "../generics/generic.Controller";
+import {
+    getEntitiesController, getEntityByIdController, createEntityController, updateEntityController, deleteEntityController
+} from "../baseController/base.Generic.Controller";
 
 // get all vehicleSpecifications
 export const getVehicleSpecificationsController = getEntitiesController(getVehicleSpecificationsService);

@@ -147,7 +147,7 @@ DELETE http://localhost:8080/locations/3
 GET http://localhost:8080/bookings
 
 ### GET BOOKING BY ID
-GET http://localhost:8080/bookings/3
+GET http://localhost:8080/bookings/4
 
 ### CREATE BOOKING
 POST http://localhost:8080/bookings HTTP/1.1
@@ -164,7 +164,7 @@ Content-Type: application/json
 }
 
 ### UPDATE BOOKING BY ID
-PUT http://localhost:8080/bookings/3 HTTP/1.1
+PUT http://localhost:8080/bookings/4 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -173,10 +173,10 @@ Content-Type: application/json
     "location_id": 1,
     "booking_date": "2021-06-01",
     "return_date": "2021-06-10",
-    "total_amount": "360.00",
-    "booking_status": "reaaly"
+    "total_amount": "36000.00",
+    "booking_status": "reaaaaaaaaaaaaaaaaaaly"
 }
 
 ### DELETE BOOKING BY ID
-DELETE http://localhost:8080/bookings/3
+DELETE http://localhost:8080/bookings/4
 

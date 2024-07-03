@@ -3,7 +3,7 @@ import { getLocationsService, getLocationByIdService, locationExistsService, cre
 import {
     getEntitiesController, getEntityByIdController, createEntityController,
     updateEntityController, deleteEntityController
-} from "../generics/generic.Controller";
+} from "../baseController/base.Generic.Controller";
 
 // get all locations
 export const getLocationsController = getEntitiesController(getLocationsService);

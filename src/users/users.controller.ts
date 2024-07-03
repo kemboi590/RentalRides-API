@@ -5,7 +5,7 @@ import {
 import {
     getEntitiesController, getEntityByIdController, createEntityController,
     updateEntityController, deleteEntityController
-} from "../generics/generic.Controller";
+} from "../baseController/base.Generic.Controller";
 
 // get all users
 export const getUsersController = getEntitiesController(getUsersService);
