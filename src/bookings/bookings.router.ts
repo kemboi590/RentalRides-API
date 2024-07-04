@@ -2,7 +2,10 @@ import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator';
 
 import { bookingSchema } from '../validators';
-import { getBookingsController, getBookingByIdController, deleteBookingController, createBookingController, updateBookingController } from './bookings.controller'
+import {
+    getBookingsController, getBookingByIdController, deleteBookingController, createBookingController, updateBookingController,
+    getUserBookingController
+} from './bookings.controller'
 
 export const bookingRouter = new Hono()
 
@@ -24,3 +27,6 @@ bookingRouter
         }
     }), updateBookingController)
     .delete("bookings/:id", deleteBookingController)
+
+// get user booking
+bookingRouter.get("bookings/user/:id", getUserBookingController)

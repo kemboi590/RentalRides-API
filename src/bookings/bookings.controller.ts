@@ -1,4 +1,7 @@
-import { getBookingsService, getBookingByIdService, bookingExistsService, createBookingService, updateBookingService, deleteBookingService } from "./bookings.service";
+import {
+    getBookingsService, getBookingByIdService, bookingExistsService, createBookingService, updateBookingService, deleteBookingService, 
+    getUserBookingService
+} from "./bookings.service";
 import { getEntitiesController, getEntityByIdController, deleteEntityController } from "../baseController/base.Generic.Controller";
 import { createEntityControllerWithDates, updateEntityControllerWithDates } from '../baseController/date.GenericController';
 
@@ -12,3 +15,5 @@ export const createBookingController = createEntityControllerWithDates(createBoo
 export const updateBookingController = updateEntityControllerWithDates(bookingExistsService, updateBookingService, ['booking_date', 'return_date']);
 // delete booking
 export const deleteBookingController = deleteEntityController(bookingExistsService, deleteBookingService);
+// get user booking
+export const getUserBookingController = getEntityByIdController(getUserBookingService);

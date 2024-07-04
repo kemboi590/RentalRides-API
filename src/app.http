@@ -180,6 +180,9 @@ Content-Type: application/json
 ### DELETE BOOKING BY ID
 DELETE http://localhost:8080/bookings/4
 
+### GET USER BOOKING
+GET http://localhost:8080/bookings/user/4
+
 
 
 ###PAYMENTS
