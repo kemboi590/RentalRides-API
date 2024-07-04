@@ -1,7 +1,9 @@
 
 import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator';
-import { getSupportTicketsController, getSupportTicketByIdController, createSupportTicketController, updateSupportTicketController, deleteSupportTicketController } from './support.controller';
+import { getSupportTicketsController, getSupportTicketByIdController, createSupportTicketController, updateSupportTicketController, deleteSupportTicketController, 
+    getUserSupportTicketController, getAllUserSupportTicketsController
+} from './support.controller';
 import { ticketSchema } from './../validators';
 
 export const supportRouter = new Hono()
@@ -24,3 +26,9 @@ supportRouter
         }
     }), updateSupportTicketController)
     .delete("support/:id", deleteSupportTicketController)
+
+// get user support ticket
+supportRouter.get("supportticket/user/:id", getUserSupportTicketController)
+
+// get all user support tickets
+supportRouter.get("supporttickets/user/:id", getAllUserSupportTicketsController)

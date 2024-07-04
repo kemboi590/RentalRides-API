@@ -40,3 +40,29 @@ export const deleteSupportTicketService = async (id: number): Promise<string> =>
     await db.delete(supportTicketsTable).where(eq(supportTicketsTable.ticket_id, id));
     return "support ticket deleted successfully";
 }
+
+//getAllUserSupportTickets
+export const getAllUserSupportTicketsService = async (id: number) => {
+    const supportTickets = await db.query.supportTicketsTable.findMany({
+        where: eq(supportTicketsTable.user_id, id),
+        columns: {
+            subject: true,
+            description: true,
+            status: true,
+        }
+    });
+    return supportTickets;
+}
+
+// get user support ticket
+export const getUserSupportTicketService = async (id: number) => {
+    const supportTicket = await db.query.supportTicketsTable.findFirst({
+        where: eq(supportTicketsTable.ticket_id, id),
+        columns: {
+            subject: true,
+            description: true,
+            status: true,
+        }
+    })
+    return supportTicket;
+}
