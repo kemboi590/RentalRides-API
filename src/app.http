@@ -5,6 +5,34 @@ GET http://localhost:8080/
 ### GET ALL USERS
 GET http://localhost:8080/users
 
+### CREATE USER
+POST http://localhost:8080/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "full_name": "test name",
+    "email": "test@gmail.com",
+    "contact_phone": "0712345678",
+    "address": "1234, Embu",
+    "password": "password1"
+}
+
+### UPDATE USER BY ID
+PUT http://localhost:8080/users/8 HTTP/1.1
+Content-Type: application/json
+
+{
+    "full_name": "test kabish ",
+    "email": "test57@gmail.com",
+    "contact_phone": "0712345678",
+    "address": "1234, Embu",
+    "role": "user",
+    "password": "testpass"
+}	
+
+### DELETE USER BY ID
+DELETE http://localhost:8080/users/90
+
 ### GET USER BY ID
 GET http://localhost:8080/users/60
 

@@ -6,6 +6,7 @@ import { csrf } from 'hono/csrf'
 import { trimTrailingSlash } from 'hono/trailing-slash'
 import { timeout } from 'hono/timeout'
 import { HTTPException } from 'hono/http-exception'
+import { cors } from "hono/cors";
 
 // all routers
 import { userRouter } from './users/users.router'
@@ -26,6 +27,7 @@ const customTimeException = () =>
   })
 
 // inbuilt middlewares
+app.use('*', cors());
 app.use(logger())
 app.use(csrf())
 app.use(trimTrailingSlash())
