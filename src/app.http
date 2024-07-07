@@ -4,18 +4,23 @@ GET http://localhost:8080/
 
 ### GET ALL USERS
 GET http://localhost:8080/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwibmFtZSI6IkJyaWFuIEtlbWJvaSIsImVtYWlsIjoiYmtlbWJvaTU5MEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJhZGRyZXNzIjoiMTQzIGtlcnVnb3lhIiwiZXhwaXJlIjoxNzIwNTk3NDE4fQ.krvriNuB_uoD91ZMRvAvdjN4Mpy_xkyH9fAep5V75Os
 
 ### CREATE USER
+
 POST http://localhost:8080/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "full_name": "test name",
-    "email": "test@gmail.com",
-    "contact_phone": "0712345678",
-    "address": "1234, Embu",
-    "password": "password1"
+    "full_name": "Brian Kemboi",
+    "email": "bkemboi590@gmail.com",
+    "contact_phone": "0768353360",
+    "address": "143 kerugoya",
+    "role": "admin",
+    "password": "adminpass"
 }
+
+
 
 ### UPDATE USER BY ID
 PUT http://localhost:8080/users/8 HTTP/1.1
@@ -31,7 +36,7 @@ Content-Type: application/json
 }	
 
 ### DELETE USER BY ID
-DELETE http://localhost:8080/users/90
+DELETE http://localhost:8080/users/28
 
 ### GET USER BY ID
 GET http://localhost:8080/users/60
@@ -63,7 +68,17 @@ Content-Type: application/json
 }	
 
 ### DELETE USER BY ID
-DELETE http://localhost:8080/users/90
+DELETE http://localhost:8080/users/6
+
+
+### LOGIN
+POST http://localhost:8080/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "bkemboi590@gmail.com",
+    "password": "adminpass"
+}
 
 
 ### GET ALL VEHICLE SPECIFICATIONS

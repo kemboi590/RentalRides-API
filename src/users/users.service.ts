@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import db from "../drizzle/db";
 import { TIUsers, TSUsers, usersTable } from "../drizzle/schema";
 
@@ -22,10 +22,21 @@ export const userExistsService = async (id: number): Promise<boolean> => {
     return user !== undefined; //returns true if user exists
 }
 
+// type TRIUser = Array<{id: number,full_name: string,email: string,contact_phone: string,address: string,}>
+
 // CREATE USER
 export const createUserService = async (user: TIUsers): Promise<string> => {
     await db.insert(usersTable).values(user)
     return "user created successfully";
+                        //OR
+    // return await db.insert(usersTable).values(user).returning({
+    //     id:usersTable.user_id,
+    //     full_name:usersTable.full_name, 
+    //     email:usersTable.email, 
+    //     contact_phone:usersTable.contact_phone,
+    //     address:usersTable.address
+    //     }).execute();
+
 }
 
 //  UPDATE USER
@@ -38,4 +49,19 @@ export const updateUserService = async (id: number, user: TIUsers): Promise<stri
 export const deleteUserService = async (id: number): Promise<string> => {
     await db.delete(usersTable).where(eq(usersTable.user_id, id));
     return "user deleted successfully";
+}
+
+export const userLoginService = async (user:TSUsers) => {
+    const {email} = user;
+    return await db.query.usersTable.findFirst({
+        columns: {
+            user_id:true,
+            full_name:true,
+            email:true,
+            contact_phone:true,
+            address:true,
+            password:true,
+            role:true
+        }, where: sql`${usersTable.email} = ${email}`,
+    })
 }

@@ -10,6 +10,12 @@ export const userSchema = z.object({
     updated_at: z.date().optional(),
 });
 
+
+export const loginSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(6).max(255),
+});
+
 export const vehicleSpecSchema = z.object({
     manufacturer: z.string().min(3).max(255),
     model: z.string().min(3).max(255),
@@ -68,3 +74,4 @@ export const fleetSchema = z.object({
     maintenance_cost: z.string().min(3).max(255),
     status: z.string().min(3).max(255),
 });
+
