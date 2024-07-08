@@ -1,7 +1,10 @@
 import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator';
 import { vehicleSchema } from '../validators';
-import { getVehiclesController, getVehicleByIdController, createVehicleController, updateVehicleController, deleteVehicleController } from './vehicle.controller'
+import {
+    getVehiclesController, getVehicleByIdController, createVehicleController, updateVehicleController, deleteVehicleController,
+    getVehiclesWithSpecsController
+} from './vehicle.controller'
 
 export const vehicleRouter = new Hono()
 
@@ -23,3 +26,6 @@ vehicleRouter
         }
     }), updateVehicleController)
     .delete("vehicles/:id", deleteVehicleController)
+
+// get vehicles with specifications
+vehicleRouter.get("vehiclesSpecs", getVehiclesWithSpecsController)

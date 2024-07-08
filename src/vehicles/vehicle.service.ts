@@ -40,3 +40,30 @@ export const deleteVehicleService = async (id: number): Promise<string> => {
     await db.delete(vehiclesTable).where(eq(vehiclesTable.vehicle_id, id));
     return "vehicle deleted successfully";
 }
+
+// Get all vehicles with specifications
+export const getVehiclesWithSpecsService = async () => {
+    const vehicles = await db.query.vehiclesTable.findMany({
+        columns:{
+            vehicle_id:true,
+            rental_rate:true,
+            availability:true,
+        },
+        with:{
+            vehicle_specifications:{
+                columns:{
+                    manufacturer:true,
+                    model:true,
+                    year:true,
+                    fuel_type:true,
+                    color:true,
+                    engine_capacity:true,
+                    transmission:true,
+                    features:true,
+                    seating_capacity:true,
+                }
+            }
+        }
+    });
+    return vehicles;
+}

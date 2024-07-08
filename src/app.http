@@ -233,10 +233,10 @@ GET http://localhost:8080/bookings/user/all/1
 
 ###PAYMENTS
 ### GET ALL PAYMENTS
-GET http://localhost:8080/payments
+GET http://localhost:8080/vehiclesSpecs
 
 ### GET PAYMENT BY ID
-GET http://localhost:8080/payments/3
+GET http://localhost:8080/payments/1
 
 ### CREATE PAYMENT
 POST http://localhost:8080/payments HTTP/1.1
