@@ -1,5 +1,5 @@
 {
-  "id": "b40864e8-4bc4-4a0a-a90c-dcc0a5a34d8e",
+  "id": "3abe46a8-c623-493b-8b73-5bb0eb8f0f73",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -568,6 +568,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "image_url": {
+          "name": "image_url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
@@ -609,7 +615,8 @@
       "schema": "public",
       "values": [
         "user",
-        "admin"
+        "admin",
+        "both"
       ]
     }
   },

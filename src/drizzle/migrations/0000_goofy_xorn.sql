@@ -1,5 +1,5 @@
 DO $$ BEGIN
- CREATE TYPE "public"."role" AS ENUM('user', 'admin');
+ CREATE TYPE "public"."role" AS ENUM('user', 'admin', 'both');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS "vehicles" (
 	"vehicleSpec_id" integer NOT NULL,
 	"rental_rate" numeric(10, 2) NOT NULL,
 	"availability" boolean NOT NULL,
+	"image_url" varchar(255),
 	"created_at" timestamp DEFAULT NOW() NOT NULL,
 	"updated_at" timestamp DEFAULT NOW() NOT NULL
 );
