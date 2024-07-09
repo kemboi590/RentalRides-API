@@ -30,6 +30,7 @@ export const vehicleSpecificationsTable = pgTable("vehicle_specifications", {
   seating_capacity: integer("seating_capacity").notNull(),
   color: varchar("color", { length: 255 }).notNull(),
   features: text("features"),
+  image_url: varchar("image_url", { length: 255 }),
 });
 
 // 3. Vehicles Table
