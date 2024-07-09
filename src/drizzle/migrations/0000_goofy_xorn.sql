@@ -76,7 +76,6 @@ CREATE TABLE IF NOT EXISTS "users" (
 CREATE TABLE IF NOT EXISTS "vehicle_specifications" (
 	"vehicleSpec_id" serial PRIMARY KEY NOT NULL,
 	"manufacturer" varchar(255) NOT NULL,
-	"image_url" text,
 	"model" varchar(255) NOT NULL,
 	"year" integer NOT NULL,
 	"fuel_type" varchar(255) NOT NULL,
@@ -92,6 +91,7 @@ CREATE TABLE IF NOT EXISTS "vehicles" (
 	"vehicleSpec_id" integer NOT NULL,
 	"rental_rate" numeric(10, 2) NOT NULL,
 	"availability" boolean NOT NULL,
+	"image_url" varchar(255),
 	"created_at" timestamp DEFAULT NOW() NOT NULL,
 	"updated_at" timestamp DEFAULT NOW() NOT NULL
 );

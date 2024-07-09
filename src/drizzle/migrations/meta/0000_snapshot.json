@@ -1,5 +1,5 @@
 {
-  "id": "ffb74098-04d9-4640-a3ce-22c65b2944aa",
+  "id": "3abe46a8-c623-493b-8b73-5bb0eb8f0f73",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -486,12 +486,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "image_url": {
-          "name": "image_url",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
         "model": {
           "name": "model",
           "type": "varchar(255)",
@@ -573,6 +567,12 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": true
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
