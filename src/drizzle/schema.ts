@@ -22,6 +22,7 @@ export const usersTable = pgTable("users", {
 export const vehicleSpecificationsTable = pgTable("vehicle_specifications", {
   vehicleSpec_id: serial("vehicleSpec_id").primaryKey(),
   manufacturer: varchar("manufacturer", { length: 255 }).notNull(),
+  imageURL: text("image_url"),
   model: varchar("model", { length: 255 }).notNull(),
   year: integer("year").notNull(),
   fuel_type: varchar("fuel_type", { length: 255 }).notNull(),
@@ -36,9 +37,8 @@ export const vehicleSpecificationsTable = pgTable("vehicle_specifications", {
 export const vehiclesTable = pgTable("vehicles", {
   vehicle_id: serial("vehicle_id").primaryKey(),
   vehicleSpec_id: integer("vehicleSpec_id").notNull().references(() => vehicleSpecificationsTable.vehicleSpec_id, { onDelete: "cascade" }),
-  rental_rate: decimal("rental_rate", { precision: 10, scale: 2 }).notNull(), // ie. 100.00
+  rental_rate: decimal("rental_rate", { precision: 10, scale: 2 }).notNull(),
   availability: boolean("availability").notNull(),
-  image_url: varchar("image_url", { length: 255 }),
   created_at: timestamp("created_at").default(sql`NOW()`).notNull(),
   updated_at: timestamp("updated_at").default(sql`NOW()`).notNull(),
 });
@@ -95,7 +95,7 @@ export const supportTicketsTable = pgTable("support_tickets", {
 // 9. Fleet Management Table
 export const fleetManagementTable = pgTable("fleet_management", {
   fleet_id: serial("fleet_id").primaryKey(),
-  vehicle_id: integer("vehicle_id").notNull().references(() => vehiclesTable.vehicle_id, { onDelete: "cascade" }),  // corrected reference
+  vehicle_id: integer("vehicle_id").notNull().references(() => vehiclesTable.vehicle_id, { onDelete: "cascade" }),
   acquisition_date: timestamp("acquisition_date").notNull(),
   depreciation_rate: decimal("depreciation_rate", { precision: 5, scale: 2 }).notNull(),
   current_value: decimal("current_value", { precision: 10, scale: 2 }).notNull(),
