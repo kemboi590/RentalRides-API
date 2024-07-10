@@ -55,7 +55,7 @@ export const loginUserController = async (c: Context) => {
         } else {
             // create payload
             const payload = {
-                user_id: userExists?.user_id,
+                user_id: userExists?.id,
                 name: userExists?.full_name,
                 email: userExists?.email,
                 role: userExists?.role,
@@ -64,7 +64,7 @@ export const loginUserController = async (c: Context) => {
             }
             let secret = process.env.JWT_SECRET as string;
             const token = await sign(payload, secret);
-            let userID = userExists?.user_id;
+            let userID = userExists?.id;
             let name = userExists?.full_name;
             let email = userExists?.email;
             let role = userExists?.role;

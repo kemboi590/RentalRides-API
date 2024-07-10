@@ -59,7 +59,7 @@ export const bookingsTable = pgTable("bookings", {
   booking_id: serial("booking_id").primaryKey(),
   user_id: integer("user_id").notNull().references(() => usersTable.id, { onDelete: "cascade" }),
   vehicle_id: integer("vehicle_id").notNull().references(() => vehiclesTable.vehicle_id, { onDelete: "cascade" }),  // corrected reference
-  location_id: integer("location_id").notNull().references(() => locationTable.location_id, { onDelete: "cascade" }),
+  location_id: integer("location_id").references(() => locationTable.location_id, { onDelete: "cascade" }),
   booking_date: timestamp("booking_date").notNull(),
   return_date: timestamp("return_date").notNull(),
   total_amount: decimal("total_amount", { precision: 10, scale: 2 }).notNull(),

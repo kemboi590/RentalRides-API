@@ -67,3 +67,33 @@ export const getVehiclesWithSpecsService = async () => {
     });
     return vehicles;
 }
+
+// Get vehicle with specification by id
+export const getVehicleWithSpecsByIdService = async (id: number) => {
+    const vehicle = await db.query.vehiclesTable.findFirst({
+        where: eq(vehiclesTable.vehicle_id, id),
+        columns:{
+            vehicle_id:true,
+            rental_rate:true,
+            availability:true,
+        },
+        with:{
+            vehicle_specifications:{
+                columns:{
+                    manufacturer:true,
+                    model:true,
+                    year:true,
+                    fuel_type:true,
+                    color:true,
+                    engine_capacity:true,
+                    transmission:true,
+                    features:true,
+                    seating_capacity:true,
+                }
+            },
+            
+        
+        }
+    });
+    return vehicle;
+}

@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS "bookings" (
 	"booking_id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
 	"vehicle_id" integer NOT NULL,
-	"location_id" integer NOT NULL,
+	"location_id" integer,
 	"booking_date" timestamp NOT NULL,
 	"return_date" timestamp NOT NULL,
 	"total_amount" numeric(10, 2) NOT NULL,

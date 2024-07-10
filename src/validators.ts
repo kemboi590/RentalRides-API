@@ -43,7 +43,6 @@ export const locationSchema = z.object({
 export const bookingSchema = z.object({
     user_id: z.number().int(),
     vehicle_id: z.number().int(),
-    location_id: z.number().int(),
     booking_date: z.string(),
     return_date: z.string(),
     total_amount: z.string().min(3).max(255),

@@ -1,5 +1,5 @@
 {
-  "id": "172abf39-b841-4bfc-961a-27537f5ec900",
+  "id": "2c06cb65-0117-403c-981c-e743c79667eb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -30,7 +30,7 @@
           "name": "location_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "booking_date": {
           "name": "booking_date",

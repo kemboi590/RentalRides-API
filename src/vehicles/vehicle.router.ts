@@ -3,7 +3,7 @@ import { zValidator } from '@hono/zod-validator';
 import { vehicleSchema } from '../validators';
 import {
     getVehiclesController, getVehicleByIdController, createVehicleController, updateVehicleController, deleteVehicleController,
-    getVehiclesWithSpecsController
+    getVehiclesWithSpecsController, getVehicleWithSpecsByIdController
 } from './vehicle.controller'
 
 export const vehicleRouter = new Hono()
@@ -29,3 +29,5 @@ vehicleRouter
 
 // get vehicles with specifications
 vehicleRouter.get("vehiclesSpecs", getVehiclesWithSpecsController)
+// get vehicle with specification by id
+vehicleRouter.get("vehicle-specs/:id", getVehicleWithSpecsByIdController)

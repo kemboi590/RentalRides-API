@@ -1,6 +1,6 @@
 import {
     getVehiclesService, getVehicleByIdService, createVehicleService, updateVehicleService, deleteVehicleService, vehicleExistsService ,
-    getVehiclesWithSpecsService
+    getVehiclesWithSpecsService, getVehicleWithSpecsByIdService
 } from "./vehicle.service";
 import {
     getEntitiesController, getEntityByIdController, createEntityController,
@@ -19,3 +19,5 @@ export const updateVehicleController = updateEntityController(vehicleExistsServi
 export const deleteVehicleController = deleteEntityController(vehicleExistsService, deleteVehicleService);
 // get vehicles with specifications
 export const getVehiclesWithSpecsController = getEntitiesController(getVehiclesWithSpecsService);
+// get vehicles with specification by id
+export const getVehicleWithSpecsByIdController = getEntityByIdController(getVehicleWithSpecsByIdService);
