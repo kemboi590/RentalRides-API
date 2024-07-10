@@ -14,6 +14,9 @@ importers:
       '@hono/zod-validator':
         specifier: ^0.2.2
         version: 0.2.2(hono@4.4.10)(zod@3.23.8)
+      '@neondatabase/serverless':
+        specifier: ^0.9.4
+        version: 0.9.4
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
@@ -22,7 +25,7 @@ importers:
         version: 16.4.5
       drizzle-orm:
         specifier: ^0.31.0
-        version: 0.31.2(@types/pg@8.11.6)(pg@8.12.0)
+        version: 0.31.2(@neondatabase/serverless@0.9.4)(@types/pg@8.11.6)(pg@8.12.0)
       hono:
         specifier: ^4.4.2
         version: 4.4.10
@@ -478,6 +481,9 @@ packages:
   '@mapbox/node-pre-gyp@1.0.11':
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
+
+  '@neondatabase/serverless@0.9.4':
+    resolution: {integrity: sha512-D0AXgJh6xkf+XTlsO7iwE2Q1w8981E1cLCPAALMU2YKtkF/1SF6BiAzYARZFYo175ON+b1RNIy9TdSFHm5nteg==}
 
   '@types/bcrypt@5.0.2':
     resolution: {integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==}
@@ -1179,6 +1185,10 @@ snapshots:
       - encoding
       - supports-color
 
+  '@neondatabase/serverless@0.9.4':
+    dependencies:
+      '@types/pg': 8.11.6
+
   '@types/bcrypt@5.0.2':
     dependencies:
       '@types/node': 20.14.9
@@ -1253,8 +1263,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.31.2(@types/pg@8.11.6)(pg@8.12.0):
+  drizzle-orm@0.31.2(@neondatabase/serverless@0.9.4)(@types/pg@8.11.6)(pg@8.12.0):
     optionalDependencies:
+      '@neondatabase/serverless': 0.9.4
       '@types/pg': 8.11.6
       pg: 8.12.0
 

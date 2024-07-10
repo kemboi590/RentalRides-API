@@ -22,15 +22,6 @@ export const verifyToken = async (token: string, secret: string) => {
 }
 
 
-//to rewrite using tryCatchWrapper, you can do it this way
-// export const verifyToken = async (token: string, secret: string) => tryCatchWrapper(async (c:Context):Promise<Response> => {
-//     const decoded = await verify(token, secret);
-//     return c.json(decoded, 200);
-// });
-
-
-
-
 // AUTHENTICATION MIDDLEWARE
 export const authMiddleware = async (c: Context & { req: HonoRequest<any, unknown> }, next: Next, requiredRole: string) => {
     const token = c.req.header("Authorization");

@@ -1,5 +1,5 @@
 import { eq, sql } from "drizzle-orm";
-import db from "../drizzle/db";
+import {db} from "../drizzle/db";
 import { TIUsers, TSUsers, usersTable } from "../drizzle/schema";
 
 // GET ALL USERS
@@ -11,7 +11,7 @@ export const getUsersService = async (): Promise<TSUsers[]> => {
 // GET USER BY ID
 export const getUserByIdService = async (id: number): Promise<TSUsers | undefined> => {
     const user = await db.query.usersTable.findFirst({
-        where: eq(usersTable.user_id, id)
+        where: eq(usersTable.id, id)
     });
     return user || undefined;
 }
@@ -41,13 +41,13 @@ export const createUserService = async (user: TIUsers): Promise<string> => {
 
 //  UPDATE USER
 export const updateUserService = async (id: number, user: TIUsers): Promise<string> => {
-    await db.update(usersTable).set(user).where(eq(usersTable.user_id, id));
+    await db.update(usersTable).set(user).where(eq(usersTable.id, id));
     return "user updated successfully";
 }
 
 // DELETE USER
 export const deleteUserService = async (id: number): Promise<string> => {
-    await db.delete(usersTable).where(eq(usersTable.user_id, id));
+    await db.delete(usersTable).where(eq(usersTable.id, id));
     return "user deleted successfully";
 }
 
@@ -55,7 +55,7 @@ export const userLoginService = async (user:TSUsers) => {
     const {email} = user;
     return await db.query.usersTable.findFirst({
         columns: {
-            user_id:true,
+            id:true,
             full_name:true,
             email:true,
             contact_phone:true,
