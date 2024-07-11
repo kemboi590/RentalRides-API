@@ -60,7 +60,7 @@ type TGetVehicleSpecs = {
 
 
 // Get all vehicles with specifications
-export const getVehiclesWithSpecsService = async (): Promise<TGetVehicleSpecs> => {
+export const getVehiclesWithSpecsService = async () => {
     const vehicles = await db.query.vehiclesTable.findMany({
         columns:{
             vehicle_id:true,
@@ -105,7 +105,7 @@ type TGetVehicleSpecsById = {
 
 
 // Get vehicle with specification by id
-export const getVehicleWithSpecsByIdService = async (id: number): Promise<TGetVehicleSpecsById> => {
+export const getVehicleWithSpecsByIdService = async (id: number) => {
     const vehicle = await db.query.vehiclesTable.findFirst({
         where: eq(vehiclesTable.vehicle_id, id),
         columns:{
