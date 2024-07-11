@@ -29,28 +29,60 @@ export const paymentExistsService = async (id: number): Promise<boolean> => {
 //     return "payment created successfully";
 // }
 
-export const createPaymentService = async (payment: TIPayments)=>{
-    if(payment.booking_id === undefined) {
-        throw new Error("Booking ID is required")
-    }
-    // create a payement intent
-    const paymentIntent = await stripe.paymentIntents.create({
-        amount: Number(payment.amount) * 100,
-        currency: "usd",
-        metadata:{booking_id: payment.booking_id},
-    });
+// export const createPaymentService = async (payment: TIPayments)=>{
+//     if(payment.booking_id === undefined) {
+//         throw new Error("Booking ID is required")
+//     }
+//     // create a payement intent
+//     const paymentIntent = await stripe.paymentIntents.create({
+//         amount: Number(payment.amount) * 100,
+//         currency: "usd",
+//         metadata:{booking_id: payment.booking_id},
+//     });
 
+//     // Save the payment intent id to the database
+//     await db.insert(paymentsTable).values({
+//         booking_id: payment.booking_id,
+//         amount: payment.amount,
+//         payment_status: "Pending",
+//         payment_date: new Date(),
+//         payment_method: payment.payment_method,
+//         transaction_id: paymentIntent.id,
+//     }).execute();
+//     return {message: "Payment created successfully", client_secret: paymentIntent.client_secret};
+// }
+
+// CREATE PAYMENT
+export const createPaymentService = async (payment: TIPayments) => {
+    if (payment.booking_id === undefined) {
+      throw new Error("Booking ID is required");
+    }
+  
+    // Create a payment intent
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Number(payment.amount) * 100,
+      currency: "usd",
+      metadata: { booking_id: payment.booking_id },
+    });
+  
     // Save the payment intent id to the database
     await db.insert(paymentsTable).values({
-        booking_id: payment.booking_id,
-        amount: payment.amount,
-        payment_status: "Pending",
-        payment_date: new Date(),
-        payment_method: payment.payment_method,
-        transaction_id: paymentIntent.id,
+      booking_id: payment.booking_id,
+      amount: payment.amount,
+      payment_status: "Pending",
+      payment_date: new Date(),
+      payment_method: payment.payment_method,
+      transaction_id: paymentIntent.id,
     }).execute();
-    return {message: "Payment created successfully", client_secret: paymentIntent.client_secret};
-}
+  
+    // Log the client secret and the payment intent ID
+    console.log("Payment Intent created:", paymentIntent.id);
+    console.log("Client Secret:", paymentIntent.client_secret);
+  
+    // Return the checkout session URL
+    return { message: "Payment created successfully", client_secret: paymentIntent.client_secret };
+  };
+  
 
 
 //  UPDATE PAYMENT

@@ -4,7 +4,7 @@ import { zValidator } from '@hono/zod-validator';
 import { paymentSchema } from '../validators';
 
 import { getPaymentsController, getPaymentByIdController, deletePaymentController, createPaymentController, updatePaymentController } from './payements.controller'
-
+import { createCheckoutSessionController } from './checkoutSession';
 export const paymentRouter = new Hono()
 
 // get all payments
@@ -26,4 +26,7 @@ paymentRouter
     }), updatePaymentController)
     .delete("payments/:id", deletePaymentController)
 
+
+    // checkout session
+paymentRouter.post("checkout-session", createCheckoutSessionController)
     

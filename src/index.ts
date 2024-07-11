@@ -7,6 +7,7 @@ import { trimTrailingSlash } from 'hono/trailing-slash'
 import { timeout } from 'hono/timeout'
 import { HTTPException } from 'hono/http-exception'
 import { cors } from "hono/cors";
+import { handleWebhook } from './payments/webHookHandler'
 
 // all routers
 import { userRouter } from './users/users.router'
@@ -47,6 +48,7 @@ app.route("/", bookingRouter)
 app.route("/", paymentRouter)
 app.route("/", supportRouter)
 app.route("/", fleetRouter)
+app.post("/webhook", handleWebhook)
 
 app.get('time', async (c) => {
   await new Promise((resolve) => setTimeout(resolve, 3000))
