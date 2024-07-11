@@ -1,13 +1,9 @@
 import "dotenv/config";
 import {verify} from "hono/jwt";
 import { Context, Next } from "hono";
-import { tryCatchWrapper } from "../factory/factory";
-
-
 
 interface HonoRequest<T, U> {
     user?: T;
-    // Add other properties if needed
 }
 
 

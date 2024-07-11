@@ -28,15 +28,6 @@ export const userExistsService = async (id: number): Promise<boolean> => {
 export const createUserService = async (user: TIUsers): Promise<string> => {
     await db.insert(usersTable).values(user)
     return "user created successfully";
-                        //OR
-    // return await db.insert(usersTable).values(user).returning({
-    //     id:usersTable.user_id,
-    //     full_name:usersTable.full_name, 
-    //     email:usersTable.email, 
-    //     contact_phone:usersTable.contact_phone,
-    //     address:usersTable.address
-    //     }).execute();
-
 }
 
 //  UPDATE USER
@@ -51,7 +42,17 @@ export const deleteUserService = async (id: number): Promise<string> => {
     return "user deleted successfully";
 }
 
-export const userLoginService = async (user:TSUsers) => {
+type TloginUser= {
+    id: number;
+    full_name: string;
+    email: string;
+    contact_phone: string;
+    address: string;
+    role: "user" | "admin" | "both" | null;
+    password: string;
+} | undefined
+
+export const userLoginService = async (user:TSUsers) : Promise<TloginUser> => {
     const {email} = user;
     return await db.query.usersTable.findFirst({
         columns: {

@@ -4,7 +4,6 @@ import { Context } from 'hono';
 import { eq } from 'drizzle-orm';
 import { db } from '../drizzle/db';
 import { paymentsTable } from '../drizzle/schema';
-// import Stripe from 'stripe';
 
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET as string;
 

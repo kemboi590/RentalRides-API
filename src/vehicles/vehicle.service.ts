@@ -41,8 +41,26 @@ export const deleteVehicleService = async (id: number): Promise<string> => {
     return "vehicle deleted successfully";
 }
 
+type TGetVehicleSpecs = {
+    vehicle_id: number;
+    rental_rate: string;
+    availability: boolean;
+    vehicle_specifications: {
+        manufacturer: string;
+        model: string;
+        year: number;
+        fuel_type: string;
+        engine_capacity: string;
+        transmission: string;
+        seating_capacity: number;
+        color: string;
+        features: string | null;
+    };
+}[]
+
+
 // Get all vehicles with specifications
-export const getVehiclesWithSpecsService = async () => {
+export const getVehiclesWithSpecsService = async (): Promise<TGetVehicleSpecs> => {
     const vehicles = await db.query.vehiclesTable.findMany({
         columns:{
             vehicle_id:true,
@@ -68,8 +86,26 @@ export const getVehiclesWithSpecsService = async () => {
     return vehicles;
 }
 
+type TGetVehicleSpecsById = {
+        vehicle_id: number;
+        rental_rate: string;
+        availability: boolean;
+        vehicle_specifications: {
+            manufacturer: string;
+            model: string;
+            year: number;
+            fuel_type: string;
+            engine_capacity: string;
+            transmission: string;
+            seating_capacity: number;
+            color: string;
+            features: string | null;
+        };
+    } | undefined
+
+
 // Get vehicle with specification by id
-export const getVehicleWithSpecsByIdService = async (id: number) => {
+export const getVehicleWithSpecsByIdService = async (id: number): Promise<TGetVehicleSpecsById> => {
     const vehicle = await db.query.vehiclesTable.findFirst({
         where: eq(vehiclesTable.vehicle_id, id),
         columns:{
@@ -91,8 +127,6 @@ export const getVehicleWithSpecsByIdService = async (id: number) => {
                     seating_capacity:true,
                 }
             },
-            
-        
         }
     });
     return vehicle;

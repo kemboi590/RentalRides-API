@@ -17,7 +17,7 @@ userRouter
 
 // get user by id
 userRouter
-    .get("users/:id", getUserByIdController)
+    .get("users/:id", bothRoleAuth,getUserByIdController)
     .put("users/:id", zValidator('json', userSchema, (result, c) => {
         if (!result.success) {
             return c.json(result.error, 400);

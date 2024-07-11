@@ -5,6 +5,7 @@ updateVehicleSpecificationsController, deleteVehicleSpecificationsController
 } from './vSpecifications.controller';
 import { zValidator } from '@hono/zod-validator';
 import { vehicleSpecSchema } from '../validators';
+import { adminRoleAuth, userRoleAuth, bothRoleAuth} from './../middleware/bearAuth'
 
 export const vehicleSpecificationsRouter = new Hono()
 

@@ -20,7 +20,7 @@ export const getPaymentByIdService = async (id: number): Promise<TSPayments | un
 // CHECK IF PAYMENT EXISTS
 export const paymentExistsService = async (id: number): Promise<boolean> => {
     const payment = await getPaymentByIdService(id);
-    return payment !== undefined; //returns true if payment exists
+    return payment !== undefined;
 }
 
 // CREATE PAYMENT
@@ -53,6 +53,7 @@ export const paymentExistsService = async (id: number): Promise<boolean> => {
 // }
 
 // CREATE PAYMENT
+
 export const createPaymentService = async (payment: TIPayments) => {
     if (payment.booking_id === undefined) {
       throw new Error("Booking ID is required");
@@ -75,16 +76,14 @@ export const createPaymentService = async (payment: TIPayments) => {
       transaction_id: paymentIntent.id,
     }).execute();
   
-    // Log the client secret and the payment intent ID
+    //payemt intent and client secret
     console.log("Payment Intent created:", paymentIntent.id);
     console.log("Client Secret:", paymentIntent.client_secret);
   
-    // Return the checkout session URL
+    //checkout session URL
     return { message: "Payment created successfully", client_secret: paymentIntent.client_secret };
   };
   
-
-
 //  UPDATE PAYMENT
 export const updatePaymentService = async (id: number, payment: TIPayments): Promise<string> => {
     await db.update(paymentsTable).set(payment).where(eq(paymentsTable.payment_id, id));

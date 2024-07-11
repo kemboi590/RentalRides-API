@@ -27,11 +27,11 @@ export const createCheckoutSessionController = async (c: Context) => {
         success_url: `${origin}/success.html`,
         cancel_url: `${origin}/cancel.html`,
 
-     
 
     //   success_url: `${c.req.origin}/success.html`,
     //   cancel_url: `${c.req.origin}/cancel.html`,
     });
+    
 
     console.log(`Checkout Session URL: ${session.url}`);
     
