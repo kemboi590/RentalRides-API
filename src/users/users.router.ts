@@ -8,7 +8,7 @@ export const userRouter = new Hono()
 
 // get all users
 userRouter
-    .get("users",adminRoleAuth, getUsersController)
+    .get("users", getUsersController)
     .post("users", zValidator('json', userSchema, (result, c) => {
         if (!result.success) {
             return c.json(result.error, 400);
@@ -17,7 +17,7 @@ userRouter
 
 // get user by id
 userRouter
-    .get("users/:id", bothRoleAuth,getUserByIdController)
+    .get("users/:id",getUserByIdController)
     .put("users/:id", zValidator('json', userSchema, (result, c) => {
         if (!result.success) {
             return c.json(result.error, 400);
