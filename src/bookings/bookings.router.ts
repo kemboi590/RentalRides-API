@@ -28,7 +28,7 @@ bookingRouter
     }), updateBookingController)
     .delete("bookings/:id", deleteBookingController)
 
-// get user booking
-bookingRouter.get("bookings/user/:id", getUserBookingController)
+// // get user booking
+// bookingRouter.get("bookings/user/:id", getUserBookingController)
 //get all user bookings
 bookingRouter.get("bookings/user/all/:id", getAllUserBookingsController)

@@ -41,14 +41,17 @@ export const deleteBookingService = async (id: number): Promise<string> => {
     return "booking deleted successfully";
 }
 
-// getAllUserBookings
+// getAllUserBookings, this will return all bookings of a user
 export const getAllUserBookingsService = async (id: number) => {
     const bookings = await db.query.bookingsTable.findMany({
         where: eq(bookingsTable.user_id, id),
         columns: {
+            booking_id: true,
+            vehicle_id: true,
             booking_date: true,
             return_date: true,
             total_amount: true,
+            booking_status: true,
         },
         with:{
             vehicle:{
