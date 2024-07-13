@@ -18,11 +18,7 @@ userRouter
 // get user by id
 userRouter
     .get("users/:id",getUserByIdController)
-    .put("users/:id", zValidator('json', userSchema, (result, c) => {
-        if (!result.success) {
-            return c.json(result.error, 400);
-        }
-    }), updateUserController)
+    .put("users/:id", updateUserController)
     .delete("users/:id", deleteUserController)
 
 
