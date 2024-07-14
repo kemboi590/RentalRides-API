@@ -60,14 +60,14 @@ export const createPaymentService = async (payment: TIPayments) => {
     }
   
     // Create a payment intent
-    const paymentIntent = await stripe.paymentIntents.create({
+    const paymentIntent = await stripe.paymentIntents.create({ //payment intent means the payment is created to be paid
       amount: Number(payment.amount) * 100,
       currency: "usd",
-      metadata: { booking_id: payment.booking_id },
+      metadata: { booking_id: payment.booking_id }, // meta data is used to store additional information
     });
   
     // Save the payment intent id to the database
-    await db.insert(paymentsTable).values({
+    await db.insert(paymentsTable).values({ // insert the payment details to the database, the customer will pay the amount
       booking_id: payment.booking_id,
       amount: payment.amount,
       payment_status: "Pending",
