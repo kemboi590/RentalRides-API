@@ -1,6 +1,7 @@
 import { Context } from "hono";
 import { createPaymentService } from "./payements.service";
 import { stripe } from "../drizzle/db";
+import { ClientDomain } from './../utils';
 export const createCheckoutSessionController = async (c: Context) => { // this function is called when the user clicks the pay button
   try {
     const payment = await c.req.json();
@@ -24,12 +25,9 @@ export const createCheckoutSessionController = async (c: Context) => { // this f
         },
       ],
       mode: 'payment',
-        success_url: `${origin}/success.html`,
-        cancel_url: `${origin}/cancel.html`,
-
-
-    //   success_url: `${c.req.origin}/success.html`,
-    //   cancel_url: `${c.req.origin}/cancel.html`,
+      // use to client domain to redirect the user to the dashboard after payment
+      success_url: `${ClientDomain}/dashboard/payment-successful`,
+        cancel_url: `${ClientDomain}/dashboard/payment-failed`,
     });
     
 
