@@ -3,7 +3,7 @@ import { zValidator } from '@hono/zod-validator';
 
 import { paymentSchema } from '../validators';
 
-import { getPaymentsController, getPaymentByIdController, deletePaymentController, createPaymentController, updatePaymentController } from './payements.controller'
+import { getPaymentsController, getPaymentByIdController, deletePaymentController, createPaymentController } from './payements.controller'
 import { createCheckoutSessionController } from './checkoutSession';
 export const paymentRouter = new Hono()
 
@@ -19,11 +19,11 @@ paymentRouter
 // get payment by id
 paymentRouter
     .get("payments/:id", getPaymentByIdController)
-    .put("payments/:id", zValidator('json', paymentSchema, (result, c) => {
-        if (!result.success) {
-            return c.json(result.error, 400);
-        }
-    }), updatePaymentController)
+    // .put("payments/:id", zValidator('json', paymentSchema, (result, c) => {
+    //     if (!result.success) {
+    //         return c.json(result.error, 400);
+    //     }
+    // }), updatePaymentController)
     .delete("payments/:id", deletePaymentController)
 
 
