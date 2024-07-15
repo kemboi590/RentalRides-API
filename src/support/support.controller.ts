@@ -5,7 +5,8 @@ import {
 
 import {
     getSupportTicketsService, getSupportTicketByIdService, supportTicketExistsService, createSupportTicketService,updateSupportTicketService, deleteSupportTicketService,
-    getUserSupportTicketService, getAllUserSupportTicketsService
+    getAllUsersSupportTicketsService,
+    getUserSupportTicketService
 } from "./support.service";
 
 // get all support tickets
@@ -21,4 +22,4 @@ export const deleteSupportTicketController = deleteEntityController(supportTicke
 // get user support ticket
 export const getUserSupportTicketController = getEntityByIdController(getUserSupportTicketService);
 // get all user support tickets
-export const getAllUserSupportTicketsController = getEntityByIdController(getAllUserSupportTicketsService);
+export const getAllUsersSupportTicketsController = getEntitiesController(getAllUsersSupportTicketsService);

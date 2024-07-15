@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import {db} from "../drizzle/db";
+import { db } from "../drizzle/db";
 
 import { TISupportTickets, TSSupportTickets, supportTicketsTable } from "../drizzle/schema";
 
@@ -54,15 +54,31 @@ export const getAllUserSupportTicketsService = async (id: number) => {
     return supportTickets;
 }
 
-// get user support ticket
+// get user support tickets
 export const getUserSupportTicketService = async (id: number) => {
-    const supportTicket = await db.query.supportTicketsTable.findFirst({
-        where: eq(supportTicketsTable.ticket_id, id),
+    const supportTicket = await db.query.supportTicketsTable.findMany({
+        where: eq(supportTicketsTable.user_id, id),
         columns: {
+            ticket_id: true,
+            user_id: true,
             subject: true,
             description: true,
             status: true,
         }
     })
     return supportTicket;
+}
+
+// get all users support tickets
+export const getAllUsersSupportTicketsService = async () => {
+    const supportTickets = await db.query.supportTicketsTable.findMany({
+        columns: {
+            ticket_id: true,
+            user_id: true,
+            subject: true,
+            description: true,
+            status: true,
+        }
+    });
+    return supportTickets;
 }

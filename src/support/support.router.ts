@@ -1,8 +1,9 @@
 
 import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator';
-import { getSupportTicketsController, getSupportTicketByIdController, createSupportTicketController, updateSupportTicketController, deleteSupportTicketController, 
-    getUserSupportTicketController, getAllUserSupportTicketsController
+import { getSupportTicketsController, getSupportTicketByIdController, createSupportTicketController, updateSupportTicketController, deleteSupportTicketController,
+    getAllUsersSupportTicketsController,
+    getUserSupportTicketController
 } from './support.controller';
 import { ticketSchema } from './../validators';
 
@@ -30,5 +31,5 @@ supportRouter
 // get user support ticket
 supportRouter.get("supportticket/user/:id", getUserSupportTicketController)
 
-// get all user support tickets
-supportRouter.get("supporttickets/user/:id", getAllUserSupportTicketsController)
+// get all users support tickets
+supportRouter.get("supporttickets/users/all", getAllUsersSupportTicketsController)
