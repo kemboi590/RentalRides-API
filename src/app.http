@@ -221,7 +221,7 @@ Content-Type: application/json
 }
 
 ### DELETE BOOKING BY ID
-DELETE http://localhost:8080/bookings/4
+DELETE https://rental-rides-api.azurewebsites.net/41
 
 ### GET USER BOOKING
 GET http://localhost:8080/bookings/user/1

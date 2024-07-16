@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import {db} from "../drizzle/db";
+import { db } from "../drizzle/db";
 
 import { TIVehicles, TSVehicles, vehiclesTable } from "../drizzle/schema";
 
@@ -62,23 +62,24 @@ type TGetVehicleSpecs = {
 // Get all vehicles with specifications
 export const getVehiclesWithSpecsService = async () => {
     const vehicles = await db.query.vehiclesTable.findMany({
-        columns:{
-            vehicle_id:true,
-            rental_rate:true,
-            availability:true,
+        columns: {
+            vehicle_id: true,
+            rental_rate: true,
+            availability: true,
         },
-        with:{
-            vehicle_specifications:{
-                columns:{
-                    manufacturer:true,
-                    model:true,
-                    year:true,
-                    fuel_type:true,
-                    color:true,
-                    engine_capacity:true,
-                    transmission:true,
-                    features:true,
-                    seating_capacity:true,
+        with: {
+            vehicle_specifications: {
+                columns: {
+                    manufacturer: true,
+                    model: true,
+                    year: true,
+                    fuel_type: true,
+                    color: true,
+                    engine_capacity: true,
+                    transmission: true,
+                    features: true,
+                    seating_capacity: true,
+                    image_url: true,
                 }
             }
         }
@@ -87,44 +88,46 @@ export const getVehiclesWithSpecsService = async () => {
 }
 
 type TGetVehicleSpecsById = {
-        vehicle_id: number;
-        rental_rate: string;
-        availability: boolean;
-        vehicle_specifications: {
-            manufacturer: string;
-            model: string;
-            year: number;
-            fuel_type: string;
-            engine_capacity: string;
-            transmission: string;
-            seating_capacity: number;
-            color: string;
-            features: string | null;
-        };
-    } | undefined
+    vehicle_id: number;
+    rental_rate: string;
+    availability: boolean;
+    vehicle_specifications: {
+        manufacturer: string;
+        model: string;
+        year: number;
+        fuel_type: string;
+        engine_capacity: string;
+        transmission: string;
+        seating_capacity: number;
+        color: string;
+        features: string | null;
+    };
+} | undefined
 
 
 // Get vehicle with specification by id
 export const getVehicleWithSpecsByIdService = async (id: number) => {
     const vehicle = await db.query.vehiclesTable.findFirst({
         where: eq(vehiclesTable.vehicle_id, id),
-        columns:{
-            vehicle_id:true,
-            rental_rate:true,
-            availability:true,
+        columns: {
+            vehicle_id: true,
+            rental_rate: true,
+            availability: true,
+            
         },
-        with:{
-            vehicle_specifications:{
-                columns:{
-                    manufacturer:true,
-                    model:true,
-                    year:true,
-                    fuel_type:true,
-                    color:true,
-                    engine_capacity:true,
-                    transmission:true,
-                    features:true,
-                    seating_capacity:true,
+        with: {
+            vehicle_specifications: {
+                columns: {
+                    manufacturer: true,
+                    model: true,
+                    year: true,
+                    fuel_type: true,
+                    color: true,
+                    engine_capacity: true,
+                    transmission: true,
+                    features: true,
+                    seating_capacity: true,
+                    image_url: true,
                 }
             },
         }
