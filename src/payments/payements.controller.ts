@@ -3,8 +3,7 @@ import dotenv from 'dotenv';
 import Stripe from "stripe";
 
 import { getEntitiesController, getEntityByIdController, deleteEntityController } from "../baseController/base.Generic.Controller";
-import { getPaymentsService, getPaymentByIdService, paymentExistsService, insertPaymentService, updatePaymentSesseionIdSevice, deletePaymentService, updatePaymentService } from "./payements.service";
-
+import { getPaymentsService, getPaymentByIdService, paymentExistsService, insertPaymentService, updatePaymentSesseionIdSevice, deletePaymentService, updatePaymentService, getPaymentByBookingIdService } from "./payements.service";
 import { ClientDomain } from "../utils";
 
 dotenv.config();
@@ -51,6 +50,21 @@ export const updatePaymentController = async (c: Context) => {
 // delete payment
 export const deletePaymentController = deleteEntityController(paymentExistsService, deletePaymentService);
 
+// get payment by booking id
+export const getPaymentByBookingIdController = async (c: Context) => {
+    try {
+        const booking_id = Number(c.req.param('booking_id'));
+        const payment = await getPaymentByBookingIdService(booking_id);
+        if (payment === undefined) return c.json({ message: "Payment not found" }, 404);
+        return c.json(payment, 200);
+        
+    } catch (error:any) {
+        return c.json({ message: error.message }, 500);
+    }
+
+}
+
+
 // checkout session
 export const createCheckoutSessionController = async (c: Context) => {
     let booking;
@@ -90,7 +104,7 @@ export const createCheckoutSessionController = async (c: Context) => {
         // create a checkout session
         const session: Stripe.Checkout.Session = await stripe.checkout.sessions.create(sessionParams);
         console.log(`Checkout Session URL: ${session.url}`);
-        
+
         // save payment details to db
         const paymentDetails = {
             booking_id: booking.booking_id,

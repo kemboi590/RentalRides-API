@@ -48,3 +48,12 @@ export const deletePaymentService = async (id: number): Promise<string> => {
   await db.delete(paymentsTable).where(eq(paymentsTable.payment_id, id));
   return "payment deleted successfully";
 }
+
+
+// get payment by booking id
+export const getPaymentByBookingIdService = async (booking_id: number)=>{
+  const payment = await db.query.paymentsTable.findFirst({
+    where: eq(paymentsTable.booking_id, booking_id)
+  });
+  return payment;
+}

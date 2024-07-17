@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { paymentSchema } from '../validators';
-import { getPaymentsController, getPaymentByIdController, deletePaymentController,updatePaymentController, createPaymentController, createCheckoutSessionController } from './payements.controller';
+import { getPaymentsController, getPaymentByIdController, deletePaymentController,updatePaymentController, createPaymentController, createCheckoutSessionController,getPaymentByBookingIdController } from './payements.controller';
 
 
 export const paymentRouter = new Hono();
@@ -19,3 +19,6 @@ paymentRouter
 
 // checkout session
 paymentRouter.post("/checkout-session", createCheckoutSessionController);
+
+// get payment by booking id
+paymentRouter.get("paymentbybooking/:booking_id", getPaymentByBookingIdController);
