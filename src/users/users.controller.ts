@@ -1,6 +1,6 @@
 import {
     getUsersService, getUserByIdService, createUserService, updateUserService,
-    userExistsService, deleteUserService
+    userExistsService, deleteUserService,disableUserService
 } from "./users.service";
 import {
     getEntitiesController, getEntityByIdController, createEntityController,
@@ -40,6 +40,11 @@ export const createUserController = async (c: Context) => {
 export const updateUserController = updateEntityController(userExistsService, updateUserService);
 // delete user
 export const deleteUserController = deleteEntityController(userExistsService, deleteUserService);
+
+
+// disable user
+export const disableUserController = updateEntityController(userExistsService, disableUserService);
+
 
 // login user
 export const loginUserController = async (c: Context) => {

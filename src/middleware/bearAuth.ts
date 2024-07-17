@@ -32,7 +32,8 @@ export const authMiddleware = async (c: Context & { req: HonoRequest<any, unknow
             c.req.user = decoded;
             return next();
         }
-    } else if (decoded.role === requiredRole) {
+    } 
+    else if (decoded.role === requiredRole) {
         c.req.user = decoded;
         return next();
     }

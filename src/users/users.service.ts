@@ -48,7 +48,7 @@ type TloginUser= {
     email: string;
     contact_phone: string;
     address: string;
-    role: "user" | "admin" | "both" | null;
+    role: "user" | "admin" | "both" | "disabled" | null;
     password: string;
 } | undefined
 
@@ -65,4 +65,11 @@ export const userLoginService = async (user:TSUsers) : Promise<TloginUser> => {
             role:true
         }, where: sql`${usersTable.email} = ${email}`,
     })
+}
+
+
+// update user role to disabled when a user is disabled to access the system
+export const disableUserService = async (id: number): Promise<string> => {
+    await db.update(usersTable).set({role: "disabled"}).where(eq(usersTable.id, id));
+    return "user disabled successfully";
 }

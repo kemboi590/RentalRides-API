@@ -3,7 +3,7 @@ import { sql } from "drizzle-orm";
 import { relations } from "drizzle-orm";
 
 // Enums
-export const roleEnum = pgEnum("role", ["user", "admin", "both"]);
+export const roleEnum = pgEnum("role", ["user", "admin", "both", "disabled"]);
 
 // 1. Users Table
 export const usersTable = pgTable("users", {

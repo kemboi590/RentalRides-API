@@ -1,5 +1,5 @@
 {
-  "id": "5a4e09a9-d683-4c8f-b8fc-1dcbac7fb6cb",
+  "id": "38673706-8954-41da-ac5d-e202af05c62c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -616,7 +616,8 @@
       "values": [
         "user",
         "admin",
-        "both"
+        "both",
+        "disabled"
       ]
     }
   },
