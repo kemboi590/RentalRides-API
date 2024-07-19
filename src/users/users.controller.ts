@@ -1,6 +1,6 @@
 import {
     getUsersService, getUserByIdService, createUserService, updateUserService,
-    userExistsService, deleteUserService,disableUserService
+    userExistsService, deleteUserService, disableUserService
 } from "./users.service";
 import {
     getEntitiesController, getEntityByIdController, createEntityController,
@@ -65,6 +65,7 @@ export const loginUserController = async (c: Context) => {
                 email: userExists?.email,
                 role: userExists?.role,
                 address: userExists?.address,
+                image_url: userExists?.image_url,
                 expire: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 3)
             }
             let secret = process.env.JWT_SECRET as string;
@@ -74,7 +75,8 @@ export const loginUserController = async (c: Context) => {
             let email = userExists?.email;
             let role = userExists?.role;
             let address = userExists?.address;
-            return c.json({ token, user: { userID, name, email, role, address } }, 200);
+            let image_url = userExists?.image_url;
+            return c.json({ token, user: { userID, name, email, role, address, image_url } }, 200);
         }
 
     } catch (error: any) {

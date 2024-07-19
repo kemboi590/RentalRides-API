@@ -1,5 +1,5 @@
 import { eq, sql } from "drizzle-orm";
-import {db} from "../drizzle/db";
+import { db } from "../drizzle/db";
 import { TIUsers, TSUsers, usersTable } from "../drizzle/schema";
 
 // GET ALL USERS
@@ -42,27 +42,29 @@ export const deleteUserService = async (id: number): Promise<string> => {
     return "user deleted successfully";
 }
 
-type TloginUser= {
+type TloginUser = {
     id: number;
     full_name: string;
     email: string;
     contact_phone: string;
     address: string;
     role: "user" | "admin" | "both" | "disabled" | null;
+    image_url: string | null;
     password: string;
 } | undefined
 
-export const userLoginService = async (user:TSUsers) : Promise<TloginUser> => {
-    const {email} = user;
+export const userLoginService = async (user: TSUsers): Promise<TloginUser> => {
+    const { email } = user;
     return await db.query.usersTable.findFirst({
         columns: {
-            id:true,
-            full_name:true,
-            email:true,
-            contact_phone:true,
-            address:true,
-            password:true,
-            role:true
+            id: true,
+            full_name: true,
+            email: true,
+            contact_phone: true,
+            address: true,
+            password: true,
+            role: true,
+            image_url: true
         }, where: sql`${usersTable.email} = ${email}`,
     })
 }
@@ -70,6 +72,6 @@ export const userLoginService = async (user:TSUsers) : Promise<TloginUser> => {
 
 // update user role to disabled when a user is disabled to access the system
 export const disableUserService = async (id: number): Promise<string> => {
-    await db.update(usersTable).set({role: "disabled"}).where(eq(usersTable.id, id));
+    await db.update(usersTable).set({ role: "disabled" }).where(eq(usersTable.id, id));
     return "user disabled successfully";
 }
