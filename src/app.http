@@ -47,11 +47,11 @@ Content-Type: application/json
 
 {
     "full_name": "test name",
-    "email": "test@gmail.com",
+    "email": "testing@gmail.com",
     "contact_phone": "0712345678",
     "address": "1234, Embu",
     "role": "user",
-    "password": "password1"
+    "password": "123456"
 }
 
 ### UPDATE USER BY ID
@@ -76,7 +76,7 @@ POST http://localhost:8080/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "briankibichiikemboi@gmail.com",
+    "email": "testing@gmail.com",
     "password": "123456"
 }
 
