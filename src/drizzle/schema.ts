@@ -88,7 +88,9 @@ export const supportTicketsTable = pgTable("support_tickets", {
   user_id: integer("user_id").notNull().references(() => usersTable.id, { onDelete: "cascade" }),
   subject: varchar("subject", { length: 255 }).notNull(),
   description: text("description").notNull(),
-  status: varchar("status", { length: 255 }).notNull(),
+  // default the status to Open
+  status: varchar("status", { length: 255 }).default("Open").notNull(),
+  // status: varchar("status", { length: 255 }).notNull(),
   created_at: timestamp("created_at").default(sql`NOW()`).notNull(),
   updated_at: timestamp("updated_at").default(sql`NOW()`).notNull(),
 });

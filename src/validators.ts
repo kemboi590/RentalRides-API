@@ -57,7 +57,7 @@ export const ticketSchema = z.object({
     user_id: z.number().int(),
     subject: z.string().min(3).max(255),
     description: z.string().min(3).max(255),
-    status: z.string().min(3).max(255),
+    status: z.string().min(3).max(255).optional(),
 });
 
 export const fleetSchema = z.object({
