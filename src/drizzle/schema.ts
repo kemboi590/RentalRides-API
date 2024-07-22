@@ -63,7 +63,7 @@ export const bookingsTable = pgTable("bookings", {
   booking_date: timestamp("booking_date").notNull(),
   return_date: timestamp("return_date").notNull(),
   total_amount: decimal("total_amount", { precision: 10, scale: 2 }).notNull(),
-  booking_status: varchar("booking_status", { length: 255 }).default("Pending").notNull(),
+  booking_status: varchar("booking_status", { length: 255 }).default("Confirmed").notNull(),
   created_at: timestamp("created_at").default(sql`NOW()`).notNull(),
   updated_at: timestamp("updated_at").default(sql`NOW()`).notNull(),
 });
