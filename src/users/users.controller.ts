@@ -1,12 +1,12 @@
 import {
     getUsersService, getUserByIdService, createUserService, updateUserService,
-    userExistsService, deleteUserService, disableUserService
+    userExistsService, deleteUserService
 } from "./users.service";
 import {
     getEntitiesController, getEntityByIdController, createEntityController,
     updateEntityController, deleteEntityController
 } from "../baseController/base.Generic.Controller";
-
+import { sendRegistrationEmailTemplate } from "../helpers/helperFunction";
 import { userLoginService } from "./users.service";
 import { Context } from "hono";
 import bycrpt from "bcrypt";
@@ -27,8 +27,18 @@ export const createUserController = async (c: Context) => {
         const hashedPassword = await bycrpt.hash(pass, 10);
         user.password = hashedPassword;
         const createUser = await createUserService(user);
-        if (!createUser) return c.json({ message: "User not created" }, 400);
-        return c.json({ message: createUser }, 201);
+        if (!createUser) {
+            return c.json({ message: "User not created" }, 400);
+        } else{
+            // send email
+            const email = user.email;
+            const eventName: string= "You created an account on Rental Rides";
+            const userName: string= user.full_name;
+
+            const emailResponse = await sendRegistrationEmailTemplate(email, eventName, userName);
+            console.log("emailResponse", emailResponse);
+            return c.json({ message: createUser, emailResponse }, 201);
+        }
     }
     catch (error: any) {
         return c.json({ error: `Internal Server Error: ${error?.message}` }, 500);
@@ -40,11 +50,6 @@ export const createUserController = async (c: Context) => {
 export const updateUserController = updateEntityController(userExistsService, updateUserService);
 // delete user
 export const deleteUserController = deleteEntityController(userExistsService, deleteUserService);
-
-
-// disable user
-export const disableUserController = updateEntityController(userExistsService, disableUserService);
-
 
 // login user
 export const loginUserController = async (c: Context) => {
